@@ -12,9 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return redirect('admin-area');
+	// return redirect()->route('community.index');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('user-area', 'LotUsersController@index')->name('lotUsers');
+Route::get('admin-area', 'AdminUsersController@index');
+Route::get('admin-area/levies', 'AdminUsersController@levies');
+
+Route::middleware('auth')->group(function () {
+	Route::resource('maintenance', 'MaintenanceRequestController');
+	Route::resource('community', 'CommunityController');
+	Route::resource('user', 'UserDetailController');
+});

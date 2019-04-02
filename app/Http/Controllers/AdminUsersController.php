@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Community;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class AdminUsersController extends Controller
 {
-    /**
+     /**
      * Create a new controller instance.
      *
      * @return void
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
+		$user = Auth::user();
+		$maintenanceRequests = $user->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
+
+        return view('admin.index', compact('user', 'maintenanceRequests'));
+	}
+
+	public function levies()
+	{
+		return view('admin.levies.index');
+	}
 }
