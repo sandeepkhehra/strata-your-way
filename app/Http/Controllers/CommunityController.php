@@ -16,6 +16,12 @@ class CommunityController extends Controller
      */
     public function index()
     {
+		$user = Auth::user();
+
+		if (! is_null($user->community)) {
+			return redirect('/');
+		}
+
         $users = User::all();
 
 		return view('welcome', compact('users'));
@@ -47,7 +53,7 @@ class CommunityController extends Controller
 		$community->users = $request->users;
 		$community->save();
 
-		return redirect()->back();
+		return redirect('/');
     }
 
     /**
@@ -94,7 +100,7 @@ class CommunityController extends Controller
 			]);
 		}
 
-		return redirect('/admin-area');
+		return redirect('/');
     }
 
     /**

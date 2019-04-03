@@ -24,6 +24,18 @@ class UserDetailController extends Controller
 		}
 
         return view('user.list', compact('users'));
+	}
+
+	/**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+		$user = Auth::user();
+
+        return view('user.create', compact('user'));
     }
 
     /**
@@ -34,7 +46,27 @@ class UserDetailController extends Controller
      */
     public function store(Request $request)
     {
+		$rawDetails = [
+			'tel' => $request->tel,
+			'email' => $request->email,
+			'medium' => $request->medium,
+			'address' => $request->address,
+			'communication' => $request->communication,
+		];
 
+
+		$user = Auth::user();
+		$user->name = $request->name;
+		$user->update();
+
+		$userDetail = new UserDetail;
+		$userDetail->user_id = Auth::id();
+		$userDetail->details = $rawDetails;
+		$userDetail->save();
+
+		$request->session()->flash('status', 'Profile updated successfully!');
+
+		return redirect('/');
 	}
 
 	/**
@@ -78,13 +110,19 @@ class UserDetailController extends Controller
 			'communication' => $request->communication,
 		];
 
+		// $authUser = Auth::user();
+		// $authUser->name = $request->name;
+		// $authUser->update();
+
+		// dd($request);
+
 		$user->user_id = Auth::id();
 		$user->details = $rawDetails;
 		$user->update();
 
 		$request->session()->flash('status', 'Profile updated successfully!');
 
-		return redirect()->back();
+		return redirect('/');
     }
 
     /**

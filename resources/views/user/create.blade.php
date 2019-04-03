@@ -14,10 +14,7 @@
 				</div>
 			@endif
 
-			<form method="POST" action="{{ route('user.store', $user->id) }}">
-				@csrf
-				@method('PUT')
-
+			<form method="POST" action="{{ route('user.store') }}">
 				@include('shared.users._user-details')
 			</form>
         </div>

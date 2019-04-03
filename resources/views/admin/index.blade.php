@@ -4,28 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
 		<div class="col-md-6">
-			<div class="card mb-3">
-				<div class="card-header">Community Details</div>
-				<div class="card-body">
-					<table>
-						<tbody>
-							<tr>
-								<td><strong>{{ $user->community->name }}</strong></td>
-							</tr>
-							<tr>
-								<td><i class="fa fa-phone"></i> <a href="tel:{{ $user->community->details->phone }}"><strong>{{ $user->community->details->phone }}</strong></a></td>
-								<td><i class="fa fa-envelope"></i> <a href="mailto:{{ $user->community->email }}"><strong>{{ $user->community->email }}</strong></a></td>
-							</tr>
-							<tr>
-								<td colspan="2"><i class="fa fa-home"></i> <strong>{{ $user->community->details->address }}</strong></td>
-							</tr>
-							<tr>
-								<td class="pt-3"><a href="{{ route('community.edit', $user->community->id) }}">Edit details &rarr;</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+			@include('shared.users._community-details')
+
 			<div class="card mb-3">
 				<div class="card-header">Lot Owners</div>
 				<div class="card-body">
@@ -46,25 +26,12 @@
 				</div>
 			</div>
 
-			<div style="min-height: 1900px">
+			<div>
 				<h2 class="d-flex align-items-center justify-content-between">Community Wall <a href="{{ route('maintenance.create') }}" class="badge badge-primary text-right" style="font-size:55%">New Request</a></h2>
 				<hr>
 
 				<div class="list-group">
-					@forelse ($maintenanceRequests as $request)
-					<a href="{{ route('maintenance.edit', $request->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h4 class="mb-1">{{ $request->title }}</h4>
-								<small>{{ $request->created_at->diffForHumans() }}</small>
-							</div>
-							<p class="mb-1">{{ $request->description }}</p>
-							<small>{{ $request->type }}</small>
-
-							<span class="badge badge-secondary">{{ $request->status }}</span>
-						</a>
-					@empty
-						<h6>No requests found!</h6>
-					@endforelse
+					@include('shared.users._maintenance-requests')
 				</div>
 			</div>
 		</div>

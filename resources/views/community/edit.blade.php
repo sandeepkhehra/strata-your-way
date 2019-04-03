@@ -65,7 +65,7 @@
 						<div class="form-group row">
 							<label for="users" class="col-md-4 col-form-label text-md-right">Nominated Admins</label>
 							<div class="col-md-6">
-								<select name="users" id="users" class="form-control">
+								<select name="users" id="users" class="custom-select">
 									<option value="">Select a user</option>
 									@forelse ($community->users as $userID)
 										@php($user = App\User::find($userID))

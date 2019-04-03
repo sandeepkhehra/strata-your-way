@@ -9,7 +9,7 @@ class MaintenanceRequest extends Model
 	const TYPES = [
 		'Gate maintenance' => 'gm',
 		'Street light maintenance' => 'sm',
-		'Water issue' => 'wi',
+		'Water' => 'wi',
 		'Other' => 'ot',
 	];
 
