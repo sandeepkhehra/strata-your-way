@@ -4,18 +4,18 @@
 		<table>
 			<tbody>
 				<tr>
-					<td><strong>{{ $user->community->name }}</strong></td>
+					<td><strong>{{ $admin->community->name }}</strong></td>
 				</tr>
 				<tr>
-					<td><i class="fa fa-phone"></i> <a href="tel:{{ $user->community->details->phone }}"><strong>{{ $user->community->details->phone }}</strong></a></td>
-					<td><i class="fa fa-envelope"></i> <a href="mailto:{{ $user->community->email }}"><strong>{{ $user->community->email }}</strong></a></td>
+					<td><i class="fa fa-phone"></i> <a href="tel:{{ $admin->community->details->phone }}"><strong>{{ $admin->community->details->phone }}</strong></a></td>
+					<td><i class="fa fa-envelope"></i> <a href="mailto:{{ $admin->community->email }}"><strong>{{ $admin->community->email }}</strong></a></td>
 				</tr>
 				<tr>
-					<td colspan="2"><i class="fa fa-home"></i> <strong>{{ $user->community->details->address }}</strong></td>
+					<td colspan="2"><i class="fa fa-home"></i> <strong>{{ $admin->community->details->address }}</strong></td>
 				</tr>
-				@if ($user->type === 0)
+				@if ($admin->type === 0)
 					<tr>
-						<td class="pt-3"><a href="{{ route('community.edit', $user->community->id) }}">Edit details &rarr;</a></td>
+						<td class="pt-3"><a href="{{ route('community.edit', $admin->community->id) }}">Edit details &rarr;</a></td>
 					</tr>
 				@endif
 			</tbody>

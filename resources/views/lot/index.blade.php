@@ -13,11 +13,11 @@
 						<tbody>
 							<tr>
 								<td colspan="2"><i class="fa fa-home"></i> <strong>
-									{{ $user->userDetail->details->address->{'1'} }}
-									{{ $user->userDetail->details->address->{'2'} }}
-									{{ $user->userDetail->details->address->state }}
-									{{ $user->userDetail->details->address->postal }}
-									{{ $user->userDetail->details->address->country }}
+									{{ $admin->userDetail->details->address->{'1'} }}
+									{{ $admin->userDetail->details->address->{'2'} }}
+									{{ $admin->userDetail->details->address->state }}
+									{{ $admin->userDetail->details->address->postal }}
+									{{ $admin->userDetail->details->address->country }}
 								</strong></td>
 							</tr>
 						</tbody>
@@ -46,7 +46,7 @@
 			<div class="card mb-3" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Update Contact Details</h5>
-					<a href="{{ route('user.edit', $user->id) }}" class="card-link">View &rarr;</a>
+					<a href="{{ route('user.edit', $admin->id) }}" class="card-link">View &rarr;</a>
 				</div>
 			</div>
 

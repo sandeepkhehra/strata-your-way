@@ -13,12 +13,12 @@
 				<div class="card-body">
 					<table>
 						<tbody>
-							@forelse ($user->community->users as $userID)
+							@forelse ($admin->community->users as $userID)
 								@php($user = App\User::find($userID))
 								<tr>
 									{{-- Show the "show" form instead! --}}
-									{{-- <td>{{ $user->name }} <a href="{{ route('user.show', $user->id) }}"><strong>View User</strong></a></td> --}}
-									<td>{{ $user->name }} <a href="{{ route('user.edit', $user->id) }}"><strong>View User</strong></a></td>
+									{{-- <td>{{ $admin->name }} <a href="{{ route('user.show', $admin->id) }}"><strong>View User</strong></a></td> --}}
+									<td>{{ $admin->name }} <a href="{{ route('user.edit', $admin->id) }}"><strong>View User</strong></a></td>
 								</tr>
 							@empty
 								<tr><td>No user found!</td></tr>
@@ -56,7 +56,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Community Documents</h5>
 					<a href="{{ route('user.index') }}" class="card-link">View &rarr;</a>
-					<a href="{{ route('community.show', $user->community->id) }}" class="card-link">Upload &rarr;</a>
+					<a href="{{ route('community.show', $admin->community->id) }}" class="card-link">Upload &rarr;</a>
 				</div>
 			</div>
 

@@ -30,22 +30,22 @@ class UserController extends Controller
 
 	public function handleAdminUser()
 	{
-		$user = Auth::user();
-		$maintenanceRequests = $user->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
+		$admin = Auth::user();
+		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 
-		return view('admin.index', compact('user', 'maintenanceRequests'));
+		return view('admin.index', compact('admin', 'maintenanceRequests'));
 	}
 
 	public function handleLotUser()
 	{
-		$user = Auth::user();
+		$admin = Auth::user();
 
-		if (is_null($user->userDetail)) {
+		if (is_null($admin->userDetail)) {
 			return redirect()->route('user.create');
 		}
 
-		$maintenanceRequests = $user->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
+		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 
-		return view('lot.index', compact('user', 'maintenanceRequests'));
+		return view('lot.index', compact('admin', 'maintenanceRequests'));
 	}
 }
