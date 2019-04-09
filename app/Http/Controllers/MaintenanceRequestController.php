@@ -51,7 +51,7 @@ class MaintenanceRequestController extends Controller
 
 		$request->session()->flash('status', 'Request posted successfully!');
 
-		return redirect()->back();
+		return redirect('/');
     }
 
     /**
@@ -101,7 +101,7 @@ class MaintenanceRequestController extends Controller
 		$maintenance->comments = $request->comments;
 		$maintenance->update();
 
-		return redirect('admin-area');
+		return redirect('/');
     }
 
     /**

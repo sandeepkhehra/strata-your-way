@@ -47,7 +47,7 @@
 						<label for="title" class="col-md-4 col-form-label text-md-right">External Contractor Names</label>
 						<div class="col-md-6">
 							<textarea name="contractors" id="contractors" class="form-control" placeholder="External Contractor Names">{{ $maintenance->contractors }}</textarea>
-							<small><i class="fa fa-info-circle" aria-hidden="true"></i> Comma separate names</small>
+							<small><i class="fa fa-info-circle" aria-hidden="true"></i> Comma separated names</small>
 						</div>
 					</div>
 
@@ -72,7 +72,6 @@
 					</div>
 				</div>
 
-
 				<div class="form-group row">
 					<label class="col-md-4 col-form-label text-md-right">Original Issue</label>
 					<div class="col-md-6">
@@ -90,8 +89,8 @@
 
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
-						<button class="btn btn-primary">Update Request</button>
-						<a href="{{ url('admin-area') }}" class="btn btn-danger">Cancel</a>
+						<button type="submit" class="btn btn-primary">Update Request</button>
+						<a href="{{ url('/') }}" class="btn btn-danger">Cancel</a>
 					</div>
 				</div>
 			</form>

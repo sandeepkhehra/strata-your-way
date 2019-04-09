@@ -19,7 +19,7 @@ class CheckAdmin
 		$user = Auth::user();
 
 		if (is_null($user->community)) {
-			return redirect('/community');
+			return redirect()->route('community.create');
 		}
 
 		return $next($request);

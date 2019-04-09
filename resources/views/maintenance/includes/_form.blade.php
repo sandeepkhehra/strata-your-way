@@ -32,8 +32,8 @@
     </div>
     <div class="form-group row">
 		<div class="col-md-12 text-center">
-			<button class="btn btn-primary">Submit Request</button>
-			<button class="btn btn-danger">Cancel</button>
+			<button type="submit" class="btn btn-primary">Submit Request</button>
+			<a href="{{ url('/') }}" class="btn btn-danger">Cancel</a>
 		</div>
     </div>
 </form>

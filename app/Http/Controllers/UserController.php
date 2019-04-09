@@ -33,7 +33,7 @@ class UserController extends Controller
 		$admin = Auth::user();
 		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 
-		return view('admin.index', compact('admin', 'maintenanceRequests'));
+		return view('admin.index', compact( 'admin', 'maintenanceRequests'));
 	}
 
 	public function handleLotUser()

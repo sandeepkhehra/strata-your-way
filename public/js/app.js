@@ -19456,6 +19456,18 @@ jQuery(function () {
       $('div[data-status-switch]').hide();
     }
   });
+  $('#view_doc_type').on('change', function () {
+    var type = $(this).val();
+    var id = $(this).data('id');
+    var l = fetch('/api/community/doc-data/' + id);
+    console.log('as', l);
+    $('div[data-status-switch]').find('#' + type).show().siblings().hide();
+    $('div[data-status-switch]').show();
+
+    if (type == 'new' || type == 'resolved') {
+      $('div[data-status-switch]').hide();
+    }
+  });
 });
 
 /***/ }),

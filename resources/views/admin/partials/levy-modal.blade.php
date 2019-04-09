@@ -1,9 +1,8 @@
 <div
     class="modal fade"
-    id="exampleModalCenter"
+    id="levy-modal"
     tabindex="-1"
     role="dialog"
-    aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true"
 >
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -17,10 +16,10 @@
 			<form action="">
 				<div class="modal-body container">
 					<div class="form-group row">
-						<label for="period" class="col-md-4 col-form-label text-md-right">What period is the calculation for?</label>
-						<div class="col-md-6">
+						<label for="period" class="col-md-12 col-form-label">What period is the calculation for?</label>
+						<div class="col-md-12">
 							<select name="period" id="period" class="form-control">
-								<option value="quaterly">Quaterly</option>
+								<option value="quarterly">Quarterly</option>
 								<option value="annual">Annual</option>
 							</select>
 						</div>
@@ -35,9 +34,12 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label for="period" class="col-md-6 col-form-label text-md-right">What is the value of the sinking fund levies for this period?</label>
-						<div class="col-md-6">
-							<input type="text" class="form-control">
+						<label for="period" class="col-md-12 col-form-label">What is the value of the sinking fund levies for this period?</label>
+						<div class="col-md-12 input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="sink-fund-doll">$</span>
+							</div>
+							<input type="text" class="form-control" placeholder="e.g. 9000" aria-label="e.g. 9000" aria-describedby="sink-fund-doll">
 						</div>
 					</div>
 				</div>

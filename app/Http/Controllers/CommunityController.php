@@ -16,16 +16,13 @@ class CommunityController extends Controller
      */
     public function index()
     {
-		$user = Auth::user();
+		//
+	}
 
-		if (! is_null($user->community)) {
-			return redirect('/');
-		}
-
-        $users = User::all();
-
-		return view('welcome', compact('users'));
-    }
+	public function upload(Community $community)
+	{
+		return view('community.docEdit', compact('community'));
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +31,15 @@ class CommunityController extends Controller
      */
     public function create()
     {
-        //
+		$user = Auth::user();
+
+		if (! is_null($user->community)) {
+			return redirect('/');
+		}
+
+        $users = User::all();
+
+		return view('community.create', compact('users'));
     }
 
     /**
@@ -64,8 +69,16 @@ class CommunityController extends Controller
      */
     public function show(Community $community)
     {
-        return view('community.docEdit', compact('community'));
-    }
+        return view('community.docView', compact('community'));
+	}
+
+	public function documentData(Community $community)
+	{
+		echo "<pre>";
+		print_r($community);
+		print_r($_POST);
+		echo "</pre>";
+	}
 
     /**
      * Show the form for editing the specified resource.

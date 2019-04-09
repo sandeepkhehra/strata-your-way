@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', config('app.name', 'App'))</title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
+	<!-- Fonts -->
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -29,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a href="#">Home</a></li>
+						{{-- <li class="nav-item"><a href="#">Home</a></li> --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -71,6 +70,8 @@
         <main class="py-4">
             @yield('content')
         </main>
-    </div>
+	</div>
+
+	<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

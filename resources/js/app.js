@@ -22,4 +22,20 @@ jQuery(function() {
 		}
 	})
 
+	$('#view_doc_type').on('change', function() {
+		const type = $(this).val()
+		const id = $(this).data('id')
+
+		const l = fetch('/api/community/doc-data/' + id)
+
+		console.log('as', l)
+
+		$('div[data-status-switch]').find('#'+type).show().siblings().hide()
+		$('div[data-status-switch]').show()
+
+		if (type == 'new' || type == 'resolved') {
+			$('div[data-status-switch]').hide()
+		}
+	})
+
 })
