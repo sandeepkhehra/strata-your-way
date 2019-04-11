@@ -22,6 +22,8 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
 	Route::resource('maintenance', 'MaintenanceRequestController');
 	Route::get('community/upload/{community}', 'CommunityController@upload')->name('community.new');
+	Route::post('community/invite', 'CommunityController@invite');
 	Route::resource('community', 'CommunityController');
+	Route::post('user/import', 'UserController@import');
 	Route::resource('user', 'UserDetailController');
 });

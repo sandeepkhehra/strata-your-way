@@ -13,7 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 			</div>
-			<form action="">
+			<form id="send-comm-link">
 				<div class="modal-body container">
 					<div class="form-group row">
 						<div class="col-md-12">
@@ -22,7 +22,7 @@
 								@php($user = App\User::find($userID))
 									<li class="list-group-item">
 										<div class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" id="lot-user-{{ $user->id }}">
+											<input type="checkbox" class="custom-control-input" name="owner_ids[]" value="{{ $user->id }}" id="lot-user-{{ $user->id }}">
 											<label class="custom-control-label" for="lot-user-{{ $user->id }}">
 												{{ $user->name }} <br>
 												<i class="fa fa-envelope"></i> {{ $user->userDetail->details->email->{'1'} }} <br>

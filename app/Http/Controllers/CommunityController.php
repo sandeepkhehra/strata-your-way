@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Community;
+use App\Mail\InviteUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
 class CommunityController extends Controller
@@ -125,5 +127,15 @@ class CommunityController extends Controller
     public function destroy(Community $community)
     {
         //
-    }
+	}
+
+	public function invite()
+	{
+		$userIDs = $_POST['owner_ids'];
+
+		Mail::to('parup@getnada.com')->send(new InviteUser('lmaooo'));
+		// foreach ($userIDs as $userID) :
+		// 	$userEmail = User::find($userID);
+		// endforeach;
+	}
 }

@@ -38,4 +38,39 @@ jQuery(function() {
 		}
 	})
 
+	$('#toggle-import-form').on('click', function() {
+		$('[data-import-form]').toggleClass('d-none')
+	})
+
+	$('#import-csv-user').on('submit', function(e) {
+		e.preventDefault()
+		const formData = new FormData(this)
+
+		axios.post('/user/import', formData, {
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(response => {
+        	console.log(response.data);
+    	});
+	})
+
+	$('#send-comm-link').on('submit', function(e) {
+		e.preventDefault()
+		const formData = new FormData(this)
+
+		axios.post('/community/invite', formData, {
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(response => {
+        	console.log(response.data);
+    	});
+	})
+
+	$('.has-select2').select2()
 })

@@ -44,7 +44,7 @@
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
 						<button class="btn btn-primary">Update Request</button>
-						<a href="{{ url('admin-area') }}" class="btn btn-danger">Cancel</a>
+						<a href="{{ url('/') }}" class="btn btn-danger">Cancel</a>
 					</div>
 				</div>
 			</form>
