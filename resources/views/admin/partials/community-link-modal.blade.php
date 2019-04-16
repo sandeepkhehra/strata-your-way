@@ -18,8 +18,8 @@
 					<div class="form-group row">
 						<div class="col-md-12">
 							<ul class="list-group">
-							@forelse ($admin->community->users as $userID)
-								@php($user = App\User::find($userID))
+							@forelse ($lotUsers as $user)
+								@if ($user->userDetail)
 									<li class="list-group-item">
 										<div class="custom-control custom-checkbox">
 											<input type="checkbox" class="custom-control-input" name="owner_ids[]" value="{{ $user->id }}" id="lot-user-{{ $user->id }}">
@@ -31,8 +31,9 @@
 											</label>
 										</div>
 									</li>
+								@endif
 							@empty
-								<li>No user found!</li>
+								<li class="list-group-item">No users found!</li>
 							@endforelse
 							</ul>
 						</div>

@@ -7,11 +7,6 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 			<h1 class="text-center">Upload Community Documents</h1>
-			@if (session('status'))
-				<div class="alert alert-success" role="alert">
-					{{ session('status') }}
-				</div>
-			@endif
 			<hr>
 
 			<form action=" {{ route('community.update', $community->id) }} " method="POST" enctype="multipart/form-data">
@@ -22,6 +17,7 @@
 					<label for="doc_type" class="col-md-4 col-form-label text-md-right">Document Type</label>
 					<div class="col-md-6">
 						<select name="doc_type" id="doc_type" class="form-control">
+							<option value="" selected disabled>&mdash; Select document type &mdash;</option>
 							@foreach ($community::DOC_TYPES as $key => $type)
 								<option value="{{ $type }}">{{ $key }}</option>
 							@endforeach
@@ -43,7 +39,7 @@
 
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
-						<button class="btn btn-primary">Update Request</button>
+						<button type="submit" class="btn btn-primary">Upload Document</button>
 						<a href="{{ url('/') }}" class="btn btn-danger">Cancel</a>
 					</div>
 				</div>

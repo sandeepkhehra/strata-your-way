@@ -61,10 +61,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group row mb-0 text-center">
+                            <div class="col-md-5">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Register as Admin') }}
+                                </button>
+							</div>
+							- OR -
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register as Lot Owner') }}
                                 </button>
                             </div>
                         </div>

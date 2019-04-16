@@ -33,9 +33,9 @@ class UserDetailController extends Controller
      */
     public function create()
     {
-		$user = Auth::user();
+		$admin = Auth::user();
 
-        return view('user.create', compact('user'));
+        return view('user.create', compact('admin'));
     }
 
     /**
@@ -86,11 +86,11 @@ class UserDetailController extends Controller
      * @param  \App\UserDetail  $userDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserDetail $userDetail)
+    public function edit(UserDetail $user)
     {
-		$user = Auth::user();
+		$admin = Auth::user();
 
-		return view('user.edit', compact('user', 'userDetail'));
+		return view('user.edit', compact('admin', 'user'));
     }
 
     /**
@@ -110,17 +110,14 @@ class UserDetailController extends Controller
 			'communication' => $request->communication,
 		];
 
-		// $authUser = Auth::user();
-		// $authUser->name = $request->name;
-		// $authUser->update();
-
-		// dd($request);
-
-		$user->user_id = Auth::id();
 		$user->details = $rawDetails;
 		$user->update();
 
-		$request->session()->flash('status', 'Profile updated successfully!');
+		$authUser = Auth::user();
+		$authUser->name = $request->name;
+		$authUser->update();
+
+		$request->session()->flash('status', 'Details updated successfully!');
 
 		return redirect('/');
     }

@@ -25296,11 +25296,20 @@ jQuery(function () {
       $('div[data-status-switch]').hide();
     }
   });
-  $('#view_doc_type').on('change', function () {
+  $('#view-doc-type').on('change', function () {
     var type = $(this).val();
     var id = $(this).data('id');
-    var l = fetch('/api/community/doc-data/' + id);
-    console.log('as', l);
+    axios.get('/community/get-doc/' + id + '/' + type).then(function (resp) {
+      $('[data-docs-list] ul').html('');
+
+      if ($.isEmptyObject(resp.data)) {
+        $('[data-docs-list] ul').html('<li class="list-group-item">No documents found!</li>');
+      } else {
+        Object.keys(resp.data).map(function (i) {
+          $('[data-docs-list] ul').append('<li class="list-group-item">' + resp.data[i] + '</li>');
+        });
+      }
+    });
     $('div[data-status-switch]').find('#' + type).show().siblings().hide();
     $('div[data-status-switch]').show();
 

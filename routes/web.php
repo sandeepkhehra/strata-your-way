@@ -13,16 +13,15 @@
 
 Route::get('/', 'UserController@index');
 
-Auth::routes();
+Route::get('invited/{token}{?id}', 'ValidateInvitedUserController@validateInvite')->name('validate.invite');
 
-// Route::get('user-area', 'LotUsersController@index')->name('lotUsers');
-// Route::get('admin-area', 'AdminUsersController@index');
-// Route::get('admin-area/levies', 'AdminUsersController@levies');
+Auth::routes();
 
 Route::middleware('auth')->group(function () {
 	Route::resource('maintenance', 'MaintenanceRequestController');
 	Route::get('community/upload/{community}', 'CommunityController@upload')->name('community.new');
 	Route::post('community/invite', 'CommunityController@invite');
+	Route::get('community/get-doc/{community}/{docType}', 'CommunityController@getDoc');
 	Route::resource('community', 'CommunityController');
 	Route::post('user/import', 'UserController@import');
 	Route::resource('user', 'UserDetailController');

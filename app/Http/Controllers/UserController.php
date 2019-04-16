@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,10 @@ class UserController extends Controller
 	public function handleAdminUser()
 	{
 		$admin = Auth::user();
+		$lotUsers = User::where(['type' => 1])->get();
 		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 
-		return view('admin.index', compact( 'admin', 'maintenanceRequests'));
+		return view('admin.index', compact( 'admin', 'lotUsers', 'maintenanceRequests'));
 	}
 
 	public function handleLotUser()

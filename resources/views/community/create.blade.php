@@ -56,7 +56,7 @@
 						<textarea name="details[bpay]" id="bpay" placeholder="BPAY Details" class="form-control"></textarea>
 					</div>
 				</div>
-				<div class="form-group row">
+				{{-- <div class="form-group row">
 					<label for="users" class="col-md-4 col-form-label text-md-right">Nominated Admins</label>
 					<div class="col-md-6">
 						<select name="users[]" id="users" class="form-control">
@@ -68,7 +68,7 @@
 							@endforelse
 						</select>
 					</div>
-				</div>
+				</div> --}}
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-primary">Create a Community</button>

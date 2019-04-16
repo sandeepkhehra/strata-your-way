@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Community;
+use App\UserInviteToken;
 use App\Mail\InviteUser;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CommunityController extends Controller
 {
@@ -18,7 +21,8 @@ class CommunityController extends Controller
      */
     public function index()
     {
-		//
+		// Temporary.
+		return $this->create();
 	}
 
 	public function upload(Community $community)
@@ -57,7 +61,7 @@ class CommunityController extends Controller
 		$community->name = $request->name;
 		$community->email = $request->email;
 		$community->details = $request->details;
-		$community->users = $request->users;
+		$community->users = [];
 		$community->save();
 
 		return redirect('/');
@@ -103,17 +107,20 @@ class CommunityController extends Controller
     public function update(Request $request, Community $community)
     {
 		if (isset($request->doc_type)) {
-			$community->doc_type = $request->doc_type;
-			$community->documents = $request->file('file')->store('community_documents');
+			$documents = $community->documents;
+			$documents[$request->doc_type][] = $request->file('file')->storeAs('public/community_documents', $request->file('file')->getClientOriginalName());
+			$community->documents = $documents;
 			$community->update();
 		} else {
 			$community->update([
 				'name' => $request->name,
 				'email' => $request->email,
 				'details' => $request->details,
-				'admins' => $request->admins,
+				'users' => $request->users,
 			]);
 		}
+
+		$request->session()->flash('status', 'Document uploaded successfully!');
 
 		return redirect('/');
     }
@@ -132,10 +139,36 @@ class CommunityController extends Controller
 	public function invite()
 	{
 		$userIDs = $_POST['owner_ids'];
+		$user = Auth::user();
 
-		Mail::to('parup@getnada.com')->send(new InviteUser('lmaooo'));
-		// foreach ($userIDs as $userID) :
-		// 	$userEmail = User::find($userID);
-		// endforeach;
+		$invite = UserInviteToken::create([
+			'community_id' => $user->community->id,
+			'user_ids' => $userIDs,
+			'token' => Str::random(16),
+		]);
+
+		foreach ($userIDs as $userID) {
+			$invitedUser = User::findOrFail($userID);
+			Mail::to($invitedUser->email)->send(new InviteUser($invitedUser, $user->community, $invite));
+		}
+
+		// $users = User::findMany($userIDs);
+
+	}
+
+	public function getDoc(Community $community, $docType)
+	{
+		$documents = Community::value('documents');
+		$return = [];
+
+		if (isset($documents[$docType])) :
+			$order = array_reverse($documents[$docType]);
+
+			foreach ($order as $document) :
+				$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a>';
+			endforeach;
+		endif;
+
+		return response()->json( $return );
 	}
 }

@@ -1,11 +1,10 @@
 <?php
 
-use App\Community;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommunitiesTable extends Migration
+class CreateUserInviteTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,11 @@ class CreateCommunitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('communities', function (Blueprint $table) {
+        Schema::create('user_invite_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
-            $table->string('name');
-            $table->string('email');
-            $table->text('details');
-            $table->text('users')->nullable();
-            $table->text('documents')->nullable();
+            $table->integer('community_id');
+			$table->text('user_ids');
+			$table->string('token', 16)->unique();
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ class CreateCommunitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('communities');
+        Schema::dropIfExists('user_invite_tokens');
     }
 }

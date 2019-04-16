@@ -4,6 +4,12 @@
 
 @section('content')
 <div class="container">
+	@if (session('status'))
+		<div class="alert alert-success" role="alert">
+			{{ session('status') }}
+		</div>
+	@endif
+
     <div class="row justify-content-center">
 		<div class="col-md-6">
 			@include('shared.users._community-details')
@@ -53,8 +59,8 @@
 			<div class="card mb-3" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Community Documents</h5>
-					<a href="{{ route('community.new', $admin->community->id) }}" class="card-link">View &rarr;</a>
-					<a href="{{ route('community.show', $admin->community->id) }}" class="card-link">Upload &rarr;</a>
+					<a href="{{ route('community.show', $admin->community->id) }}" class="card-link">View &rarr;</a>
+					<a href="{{ route('community.new', $admin->community->id) }}" class="card-link">Upload &rarr;</a>
 				</div>
 			</div>
 

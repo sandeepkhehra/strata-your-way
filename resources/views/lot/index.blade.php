@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
+@section('title', 'Lot Owner Dashboard')
+
 @section('content')
 <div class="container">
+	@if (session('status'))
+		<div class="alert alert-success" role="alert">
+			{{ session('status') }}
+		</div>
+	@endif
+
     <div class="row justify-content-center">
 		<div class="col-md-6">
 			@include('shared.users._community-details')
@@ -46,7 +54,7 @@
 			<div class="card mb-3" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">Update Contact Details</h5>
-					<a href="{{ route('user.edit', $admin->id) }}" class="card-link">View &rarr;</a>
+					<a href="{{ route('user.edit', $admin->userDetail->id) }}" class="card-link">View &rarr;</a>
 				</div>
 			</div>
 

@@ -22,13 +22,22 @@ jQuery(function() {
 		}
 	})
 
-	$('#view_doc_type').on('change', function() {
+	$('#view-doc-type').on('change', function() {
 		const type = $(this).val()
 		const id = $(this).data('id')
 
-		const l = fetch('/api/community/doc-data/' + id)
+		axios.get('/community/get-doc/' + id + '/' + type)
+		.then(resp => {
+			$('[data-docs-list] ul').html('')
 
-		console.log('as', l)
+			if ($.isEmptyObject(resp.data)) {
+				$('[data-docs-list] ul').html('<li class="list-group-item">No documents found!</li>')
+			} else {
+				Object.keys(resp.data).map(i => {
+					$('[data-docs-list] ul').append('<li class="list-group-item">'+resp.data[i]+'</li>')
+				})
+			}
+    	});
 
 		$('div[data-status-switch]').find('#'+type).show().siblings().hide()
 		$('div[data-status-switch]').show()
