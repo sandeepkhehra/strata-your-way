@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Community;
 use App\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +17,14 @@ class UserDetailController extends Controller
      */
     public function index()
     {
-		$usersID = Auth::user()->community->users;
+		$usersID = Auth::user()->type === 3
+			? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)->users
+			: Auth::user()->community;
 		$users = [];
 
-		foreach ($usersID as $userID ) {
-			$users[] = User::find($userID);
+		foreach ($usersID as $userID) {
+			if (Auth::id() !== (int) $userID && $user = User::find($userID))
+				$users[] = $user;
 		}
 
         return view('user.list', compact('users'));
@@ -77,7 +81,9 @@ class UserDetailController extends Controller
      */
     public function show(UserDetail $user)
     {
-		return view('user.view', compact('user'));
+		$admin = Auth::user();
+
+		return view('user.view', compact('admin', 'user'));
     }
 
     /**

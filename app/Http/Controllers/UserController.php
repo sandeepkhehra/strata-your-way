@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Community;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,6 +33,10 @@ class UserController extends Controller
 	public function handleAdminUser()
 	{
 		$admin = Auth::user();
+
+		// Assign parent community to lot owner.
+		$admin->type === 3 ? $admin->community = Community::find($admin->userDetail->details->referredCommunity) : '';
+		dd($admin->maintenanceRequests());
 		$lotUsers = User::where(['type' => 1])->get();
 		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 

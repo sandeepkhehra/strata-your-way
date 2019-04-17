@@ -13,7 +13,7 @@
 
 Route::get('/', 'UserController@index');
 
-Route::get('invited/{token}{?id}', 'ValidateInvitedUserController@validateInvite')->name('validate.invite');
+Route::get('invited/{token}/{id}', 'ValidateInvitedUserController@validateInvite')->name('validate.invite');
 
 Auth::routes();
 

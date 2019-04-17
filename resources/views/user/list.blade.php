@@ -22,6 +22,7 @@
 				</thead>
 				<tbody>
 					@forelse ($users as $user)
+						@if (! is_null($user))
 						<tr>
 							<th scope="row">{{ $loop->iteration }}</th>
 							<td>{{ $user->name }}</td>
@@ -29,10 +30,11 @@
 							<td>{{ $user->details['phone'] }}</td>
 							<td>{{ $user->created_at }}</td>
 							<td>
-								<a href="{{ route('user.show', $user->id) }}" class="btn btn-secondary">View</a>
-								<a href="{{ route('user.edit', $user->id) }}" class="btn btn-info">Edit</a>
+								<a href="{{ route('user.show', $user->userDetail->id) }}" class="btn btn-secondary">View</a>
+								<a href="{{ route('user.edit', $user->userDetail->id) }}" class="btn btn-info">Edit</a>
 							</td>
 						</tr>
+						@endif
 					@empty
 						<tr><td colspan="5">No users found!</td></tr>
 					@endforelse

@@ -61,13 +61,15 @@
 					<label for="users" class="col-md-4 col-form-label text-md-right">Nominated Admins</label>
 					<div class="col-md-6">
 						<select name="users[]" id="users" class="custom-select has-select2" multiple>
-							<option value="">Select a user</option>
+							<option value="" disabled>Select a user</option>
 							@forelse ($community->users as $userID)
 								@php($user = App\User::find($userID))
 
-								<option value="{{ $user->id }}"
-									{{ (int) $user->id === (int) $userID ? 'selected' : '' }}
-									>{{ $user->name }} ({{ $user->email }})</option>
+								@if ($user)
+									<option value="{{ $user->id }}"
+										{{ (int) $user->id === (int) $userID ? 'selected' : '' }}
+										>{{ $user->name }} ({{ $user->email }})</option>
+								@endif
 							@empty
 								<option value="">No user found!</option>
 							@endforelse

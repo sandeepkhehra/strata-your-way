@@ -5,7 +5,7 @@
 			id="name"
 			type="text"
 			name="name"
-			value="{{ $admin->name }}"
+			value="{{ $user->user->name }}"
 			autofocus="autofocus"
 			placeholder="Name"
 			class="form-control"
