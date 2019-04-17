@@ -36,7 +36,6 @@ class UserController extends Controller
 
 		// Assign parent community to lot owner.
 		$admin->type === 3 ? $admin->community = Community::find($admin->userDetail->details->referredCommunity) : '';
-		dd($admin->maintenanceRequests());
 		$lotUsers = User::where(['type' => 1])->get();
 		$maintenanceRequests = $admin->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 
