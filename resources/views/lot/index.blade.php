@@ -34,7 +34,7 @@
 			</div>
 
 			<div>
-				<h2 class="d-flex align-items-center justify-content-between">Community Wall <a href="{{ route('maintenance.create') }}" class="badge badge-primary text-right" style="font-size:55%">New Request</a></h2>
+				<h4 class="d-flex align-items-center justify-content-between">Community Wall <a href="{{ route('maintenance.create') }}" class="badge badge-primary text-right" style="font-size:55%">New Maintenance Request</a></h4>
 				<hr>
 
 				<div class="list-group">

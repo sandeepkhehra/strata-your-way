@@ -79,7 +79,7 @@
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-primary">Update Details</button>
-						<a href="#" class="btn btn-warning">Update Admin Users</a>
+						{{-- <a href="#" class="btn btn-warning">Update Admin Users</a> --}}
 						<a href="{{ url()->previous() }}" class="btn btn-danger">Cancel</a>
 					</div>
 				</div>

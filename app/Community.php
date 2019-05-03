@@ -16,6 +16,7 @@ class Community extends Model
 		'Maintenance invoices' => 'mi',
 		'Utility invoices' => 'ui',
 		'Other invoices' => 'oi',
+		'Other documents' => 'od',
 	];
 
     protected $casts = [

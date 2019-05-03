@@ -15,10 +15,10 @@ class MaintenanceRequest extends Model
 
 	const STATUSES = [
 		'New' => 'new',
+		'Allocated' => 'allocated',
 		'Quoted' => 'quoted',
 		'Invoiced' => 'invoiced',
 		'Resolved' => 'resolved',
-		'Allocated' => 'allocated',
 	];
 
 	protected $casts = [

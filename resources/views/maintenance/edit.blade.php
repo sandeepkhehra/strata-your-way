@@ -58,16 +58,17 @@
 						</div>
 						<label for="attachment" class="col-md-4 col-form-label text-md-right">Invoice File</label>
 						<div class="col-md-6">
-							@empty($maintenance->attachment)
+							@if (empty($maintenance->attachment))
 								<div class="input-group">
 									<div class="custom-file">
 										<input type="file" name="attachment" class="custom-file-input" id="attachment">
 										<label class="custom-file-label" for="attachment">Choose Invoice file</label>
 									</div>
 								</div>
-							@endempty
-							<a href="{{ Storage::url($maintenance->attachment) }}" class="btn btn-info">View Document</a>
-							<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+							@else
+								<a href="{{ Storage::url($maintenance->attachment) }}" class="btn btn-info">View Document</a>
+								{{-- <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button> --}}
+							@endif
 						</div>
 					</div>
 				</div>

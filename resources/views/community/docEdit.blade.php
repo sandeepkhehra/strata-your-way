@@ -16,7 +16,7 @@
 				<div class="form-group row">
 					<label for="doc_type" class="col-md-4 col-form-label text-md-right">Document Type</label>
 					<div class="col-md-6">
-						<select name="doc_type" id="doc_type" class="form-control">
+						<select name="doc_type" id="doc_type" class="custom-select">
 							<option value="" selected disabled>&mdash; Select document type &mdash;</option>
 							@foreach ($community::DOC_TYPES as $key => $type)
 								<option value="{{ $type }}">{{ $key }}</option>
