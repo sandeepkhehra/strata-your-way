@@ -31,10 +31,18 @@
 					<div class="form-group row" id="allocated" {!! $maintenance->status !== 'allocated' ? 'style="display: none"' : '' !!}>
 						<label for="assigned" class="col-md-4 col-form-label text-md-right">Allocate User</label>
 						<div class="col-md-6">
-							<select name="assigned" id="assigned" class="form-control" required>
-								@foreach ($maintenance::STATUSES as $key => $status)
-								<option value="{{ $status }}" {{ $maintenance->status === $status ? 'selected' : '' }}>{{ $key }}</option>
-								@endforeach
+							<select name="assigned" id="assigned" class="form-control">
+								@forelse ($adminUsers as $userID)
+									@php($user = App\User::find($userID))
+
+									@if ($user)
+										<option value="{{ $user->id }}" {{ $maintenance->assigned == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+									@endif
+
+								@empty
+								<option value="">No user found!</option>
+
+								@endforelse
 							</select>
 						</div>
 					</div>
@@ -91,7 +99,18 @@
 				<div class="form-group row">
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-primary">Update Request</button>
-						<a href="{{ url('/') }}" class="btn btn-danger">Cancel</a>
+						<a href="{{ url('/') }}" class="btn btn-secondary">Cancel</a>
+					</div>
+				</div>
+			</form>
+
+			<form action=" {{ route('maintenance.destroy', $maintenance->id) }} " method="POST">
+				@csrf
+				@method('DELETE')
+
+				<div class="form-group row">
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete Request</button>
 					</div>
 				</div>
 			</form>

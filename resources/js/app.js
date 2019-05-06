@@ -81,5 +81,35 @@ jQuery(function() {
     	});
 	})
 
+	$('#generate-levy-report').on('submit', function(e) {
+		e.preventDefault()
+		const formData = new FormData(this)
+
+		axios.post('/user/levy-report', formData, {
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(resp => console.log('sda', resp))
+
+		console.log('asd', formData)
+	})
+
+	$(document).on('click', 'button[data-doc-delete]', function(e) {
+		e.preventDefault()
+		const file = $(this).attr('data-doc-delete')
+		const formData = new FormData
+		formData.append('file', file)
+
+		axios.post('/community/delete-doc', formData, {
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(resp => console.log('sad', resp))
+	})
+
 	$('.has-select2').select2()
 })

@@ -73,7 +73,9 @@ class MaintenanceRequestController extends Controller
      */
     public function edit(MaintenanceRequest $maintenance)
     {
-        return view('maintenance.edit', compact('maintenance'));
+		$adminUsers = Auth::user()->community->users;
+
+        return view('maintenance.edit', compact('maintenance', 'adminUsers'));
     }
 
     /**
@@ -101,6 +103,8 @@ class MaintenanceRequestController extends Controller
 		$maintenance->comments = $request->comments;
 		$maintenance->update();
 
+		$request->session()->flash('status', 'Request updated successfully!');
+
 		return redirect('/');
     }
 
@@ -112,6 +116,9 @@ class MaintenanceRequestController extends Controller
      */
     public function destroy(MaintenanceRequest $maintenance)
     {
-        //
+		$maintenance->delete();
+		session()->flash('status', 'Request deleted successfully!');
+
+		return redirect('/');
     }
 }

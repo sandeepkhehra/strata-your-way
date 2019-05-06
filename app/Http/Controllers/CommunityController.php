@@ -165,10 +165,20 @@ class CommunityController extends Controller
 			$order = array_reverse($documents[$docType]);
 
 			foreach ($order as $document) :
-				$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a>';
+				$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a> <button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document) .'"><i class="fa fa-trash"></i> Delete</button>';
 			endforeach;
 		endif;
 
 		return response()->json( $return );
+	}
+
+	public function deleteDoc(Request $request)
+	{
+		echo $request->file;
+		// $l = Storage::delete($request->file);
+		$l = Storage::delete('invoices/fifasetup.ini');
+		echo "<pre>";
+		print_r($l);
+		echo "</pre>";
 	}
 }

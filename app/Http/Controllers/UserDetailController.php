@@ -137,5 +137,10 @@ class UserDetailController extends Controller
     public function destroy(UserDetail $userDetail)
     {
         //
-    }
+	}
+
+	public function levyReport(Request $request)
+	{
+		dd($request);
+	}
 }

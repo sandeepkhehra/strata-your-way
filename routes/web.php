@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
 	Route::get('community/upload/{community}', 'CommunityController@upload')->name('community.new');
 	Route::post('community/invite', 'CommunityController@invite');
 	Route::get('community/get-doc/{community}/{docType}', 'CommunityController@getDoc');
+	Route::post('community/delete-doc', 'CommunityController@deleteDoc');
 	Route::resource('community', 'CommunityController');
-	Route::post('user/import', 'UserController@import');
+	// Route::post('user/import', 'UserController@import');
+	Route::post('user/levy-report', 'UserDetailController@levyReport');
 	Route::resource('user', 'UserDetailController');
 });

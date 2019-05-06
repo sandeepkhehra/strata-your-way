@@ -55,11 +55,11 @@ class UserController extends Controller
 		return view('lot.index', compact('admin', 'maintenanceRequests'));
 	}
 
-	public function import()
-	{
-		echo "<pre>";
-		print_r($_FILES);
-		echo "</pre>";
-		dd('asdad');
-	}
+	// public function import()
+	// {
+	// 	echo "<pre>";
+	// 	print_r($_FILES);
+	// 	echo "</pre>";
+	// 	dd('asdad');
+	// }
 }

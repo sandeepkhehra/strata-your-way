@@ -13,7 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 			</div>
-			<form action="">
+			<form id="generate-levy-report">
 				<div class="modal-body container">
 					<div class="form-group row">
 						<label for="period" class="col-md-12 col-form-label">What period is the calculation for?</label>
@@ -30,7 +30,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="adm-fund-doll">$</span>
 							</div>
-							<input type="text" class="form-control" placeholder="e.g. 9000" aria-label="e.g. 9000" aria-describedby="adm-fund-doll">
+							<input type="text" name="adm" class="form-control" placeholder="e.g. 9000" aria-label="e.g. 9000" aria-describedby="adm-fund-doll">
 						</div>
 					</div>
 					<div class="form-group row">
@@ -39,13 +39,13 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="sink-fund-doll">$</span>
 							</div>
-							<input type="text" class="form-control" placeholder="e.g. 9000" aria-label="e.g. 9000" aria-describedby="sink-fund-doll">
+							<input type="text" name="sink" class="form-control" placeholder="e.g. 9000" aria-label="e.g. 9000" aria-describedby="sink-fund-doll">
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Generate Report</button>
+					<button type="submit" class="btn btn-primary">Generate Report</button>
 				</div>
 			</form>
         </div>
