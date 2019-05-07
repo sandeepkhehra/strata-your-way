@@ -98,9 +98,12 @@ jQuery(function() {
 
 	$(document).on('click', 'button[data-doc-delete]', function(e) {
 		e.preventDefault()
-		const file = $(this).attr('data-doc-delete')
+		const _this = $(this)
+		const file = _this.attr('data-doc-delete')
+		const community = _this.attr('data-community')
 		const formData = new FormData
 		formData.append('file', file)
+		formData.append('community', community)
 
 		axios.post('/community/delete-doc', formData, {
 			headers: {
@@ -108,7 +111,9 @@ jQuery(function() {
 				'Content-Type': 'multipart/form-data'
 			}
 		})
-		.then(resp => console.log('sad', resp))
+		.then(resp => _this.closest('li').fadeOut('slow', function() {
+			$(this).css('background-color', 'red').remove()
+		}))
 	})
 
 	$('.has-select2').select2()

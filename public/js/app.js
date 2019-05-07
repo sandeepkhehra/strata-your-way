@@ -25359,16 +25359,25 @@ jQuery(function () {
   });
   $(document).on('click', 'button[data-doc-delete]', function (e) {
     e.preventDefault();
-    var file = $(this).attr('data-doc-delete');
+
+    var _this = $(this);
+
+    var file = _this.attr('data-doc-delete');
+
+    var community = _this.attr('data-community');
+
     var formData = new FormData();
     formData.append('file', file);
+    formData.append('community', community);
     axios.post('/community/delete-doc', formData, {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         'Content-Type': 'multipart/form-data'
       }
     }).then(function (resp) {
-      return console.log('sad', resp);
+      return _this.closest('li').fadeOut('slow', function () {
+        $(this).css('background-color', 'red').remove();
+      });
     });
   });
   $('.has-select2').select2();

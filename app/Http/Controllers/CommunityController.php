@@ -165,7 +165,10 @@ class CommunityController extends Controller
 			$order = array_reverse($documents[$docType]);
 
 			foreach ($order as $document) :
-				$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a> <button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document) .'"><i class="fa fa-trash"></i> Delete</button>';
+				$exists = Storage::disk('local')->exists($document);
+				if ($exists) {
+					$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a> <button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document) .'" data-community="'. $community->id .'"><i class="fa fa-trash"></i> Delete</button>';
+				}
 			endforeach;
 		endif;
 
@@ -174,11 +177,12 @@ class CommunityController extends Controller
 
 	public function deleteDoc(Request $request)
 	{
-		echo $request->file;
-		// $l = Storage::delete($request->file);
-		$l = Storage::delete('invoices/fifasetup.ini');
-		echo "<pre>";
-		print_r($l);
-		echo "</pre>";
+		$fileName = str_replace('/storage/', '', $request->file);
+		unlink(storage_path('app/public/' . $fileName));
+
+		// remove the file path from DB as well?
+		// $community = Community::findOrFail($request->community);
+		// $documents = $community->documents;
+		// dd($documents);
 	}
 }
