@@ -46,13 +46,6 @@
         <div class="col-md-6">
 			<div class="card mb-3" style="width: 18rem;">
 				<div class="card-body">
-					<h5 class="card-title">Log Maintenance</h5>
-					<a href="{{ route('maintenance.create') }}" class="card-link">View &rarr;</a>
-				</div>
-			</div>
-
-			<div class="card mb-3" style="width: 18rem;">
-				<div class="card-body">
 					<h5 class="card-title">Update Contact Details</h5>
 					<a href="{{ route('user.edit', $admin->userDetail->id) }}" class="card-link">View &rarr;</a>
 				</div>
@@ -61,14 +54,11 @@
 			<div class="card mb-3" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">View Community Documents</h5>
-					<a href="{{ route('user.index') }}" class="card-link">View &rarr;</a>
-				</div>
-			</div>
-
-			<div class="card mb-3" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title">Send Message to Management Community</h5>
-					<a href="{{ route('user.index') }}" class="card-link">View &rarr;</a>
+					@if ($admin->community)
+						<a href="{{ route('community.show', $admin->community->id) }}" class="card-link">View &rarr;</a>
+					@else
+						Not assigned to a community!
+					@endif
 				</div>
 			</div>
         </div>
