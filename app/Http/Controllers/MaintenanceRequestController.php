@@ -74,6 +74,7 @@ class MaintenanceRequestController extends Controller
     public function edit(MaintenanceRequest $maintenance)
     {
 		$adminUsers = Auth::user()->community->users;
+		$adminUsers = $adminUsers ? $adminUsers : [];
 
         return view('maintenance.edit', compact('maintenance', 'adminUsers'));
     }

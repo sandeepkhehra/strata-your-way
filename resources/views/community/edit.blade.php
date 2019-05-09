@@ -62,7 +62,8 @@
 					<div class="col-md-6">
 						<select name="users[]" id="users" class="custom-select has-select2" multiple>
 							<option value="" disabled>Select a user</option>
-							@forelse ($community->users as $userID)
+							@php($users = $community->users ? $community->users : [])
+							@forelse ($users as $userID)
 								@php($user = App\User::find($userID))
 
 								@if ($user)
