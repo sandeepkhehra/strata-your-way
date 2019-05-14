@@ -25322,14 +25322,26 @@ jQuery(function () {
   });
   $('#import-csv-user').on('submit', function (e) {
     e.preventDefault();
-    var formData = new FormData(this);
+
+    var _this = $(this);
+
+    var formData = new FormData();
+    formData.append('csv-file', document.querySelector('#import-csv').files[0]);
+
+    _this.find('button[type="submit"]').prop('disabled', true);
+
     axios.post('/user/import', formData, {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         'Content-Type': 'multipart/form-data'
       }
-    }).then(function (response) {
-      console.log(response.data);
+    }).then(function (resp) {
+      if (resp.data.type === 'success') {
+        alert('Users imported successfully!');
+        $('#import-owner').modal('hide');
+
+        _this.find('button[type="submit"]').prop('disabled', false);
+      }
     });
   });
   $('#send-comm-link').on('submit', function (e) {

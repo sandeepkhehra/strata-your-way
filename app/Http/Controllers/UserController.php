@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Community;
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -55,11 +57,8 @@ class UserController extends Controller
 		return view('lot.index', compact('admin', 'maintenanceRequests'));
 	}
 
-	// public function import()
-	// {
-	// 	echo "<pre>";
-	// 	print_r($_FILES);
-	// 	echo "</pre>";
-	// 	dd('asdad');
-	// }
+	public function import(Request $request)
+	{
+		Excel::import(new UsersImport, $request->file('csv-file'));
+	}
 }

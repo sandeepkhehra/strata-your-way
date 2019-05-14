@@ -57,7 +57,7 @@
 					@if ($admin->community)
 						<a href="{{ route('community.show', $admin->community->id) }}" class="card-link">View &rarr;</a>
 					@else
-						Not assigned to a community!
+						Not assigned to any community!
 					@endif
 				</div>
 			</div>

@@ -5,7 +5,7 @@
 			id="name"
 			type="text"
 			name="name"
-			value="{{ ! is_null($admin->user) ? $admin->user->name : '' }}"
+			value="{{ $admin->name }}"
 			autofocus="autofocus"
 			placeholder="Name"
 			class="form-control"
