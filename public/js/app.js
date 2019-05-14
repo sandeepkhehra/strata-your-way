@@ -25392,6 +25392,10 @@ jQuery(function () {
       });
     });
   });
+  $('input[type="file"]').change(function (e) {
+    var fileName = e.target.files[0].name;
+    $(this).next('label').html(fileName);
+  });
   $('.has-select2').select2();
 });
 

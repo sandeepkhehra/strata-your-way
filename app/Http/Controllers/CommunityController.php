@@ -163,7 +163,7 @@ class CommunityController extends Controller
 
 	public function getDoc(Community $community, $docType)
 	{
-		$documents = Community::value('documents');
+		$documents = $community->documents;
 		$return = [];
 
 		if (isset($documents[$docType])) :
