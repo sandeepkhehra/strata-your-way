@@ -17,6 +17,7 @@ class CreateMaintenanceRequestsTable extends Migration
         Schema::create('maintenance_requests', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->bigInteger('user_id');
+			$table->bigInteger('community_id');
 			$table->string('title');
 			$table->enum('type', MaintenanceRequest::TYPES)->nullable();
 			$table->longText('description');

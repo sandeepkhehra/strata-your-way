@@ -33,4 +33,9 @@ class Community extends Model
 	{
 		return $this->hasOne('App\User');
 	}
+
+	public function maintenanceRequests()
+	{
+		return $this->hasMany('App\MaintenanceRequest');
+	}
 }

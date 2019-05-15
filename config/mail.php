@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@stratayourway.co.au'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@stratayourway.com.au'),
+        'name' => env('MAIL_FROM_NAME', 'Strata Your Way'),
     ],
 
     /*

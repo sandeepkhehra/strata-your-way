@@ -154,7 +154,7 @@ class CommunityController extends Controller
 
 		foreach ($userIDs as $userID) {
 			$invitedUser = User::findOrFail($userID);
-			Mail::to($invitedUser->email)->send(new InviteUser($invitedUser, $user->community, $invite));
+			Mail::to($invitedUser->userDetail->details->email->{'1'})->send(new InviteUser($invitedUser, $user->community, $invite));
 		}
 
 		// $users = User::findMany($userIDs);

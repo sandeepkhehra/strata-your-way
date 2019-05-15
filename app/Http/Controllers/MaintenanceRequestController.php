@@ -44,6 +44,7 @@ class MaintenanceRequestController extends Controller
     {
 		$maintenance = new MaintenanceRequest;
 		$maintenance->user_id = Auth::id();
+		$maintenance->community_id = Auth::user()->community->id;
 		$maintenance->title = $request->title;
 		$maintenance->type = $request->type;
 		$maintenance->description = $request->description;
