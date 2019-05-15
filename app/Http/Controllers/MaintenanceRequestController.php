@@ -102,6 +102,12 @@ class MaintenanceRequestController extends Controller
 		endif;
 
 		$maintenance->comments = $request->comments;
+
+		if (isset($request->isPost)) {
+			$maintenance->title = $request->title;
+			$maintenance->description = $request->description;
+		}
+
 		$maintenance->update();
 
 		$request->session()->flash('status', 'Request updated successfully!');
@@ -121,5 +127,15 @@ class MaintenanceRequestController extends Controller
 		session()->flash('status', 'Request deleted successfully!');
 
 		return redirect('/');
-    }
+	}
+
+	public function createPost(Request $request)
+	{
+		return view('maintenance.createPost');
+	}
+
+	public function editPost(MaintenanceRequest $post)
+	{
+		return view('maintenance.editPost', compact('post'));
+	}
 }

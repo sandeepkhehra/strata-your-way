@@ -33,7 +33,10 @@
 			</div> --}}
 
 			<div>
-				<h4 class="d-flex align-items-center justify-content-between">Community Wall <a href="{{ route('maintenance.create') }}" class="badge badge-primary text-right" style="font-size:55%">New Maintenance Request</a></h4>
+				<h4 class="d-flex align-items-center justify-content-between">Community Wall
+					<a href="{{ route('maintenance.create') }}" class="badge badge-primary text-right" style="font-size:55%">New Maintenance Request</a>
+					<a href="{{ route('maintenance.createPost') }}" class="badge badge-primary text-right" style="font-size:55%">New Post</a>
+				</h4>
 				<hr>
 
 				<div class="list-group" style="max-height: 350px; overflow-y: auto">

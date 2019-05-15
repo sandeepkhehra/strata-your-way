@@ -18,7 +18,7 @@ class CreateMaintenanceRequestsTable extends Migration
 			$table->bigIncrements('id');
 			$table->bigInteger('user_id');
 			$table->string('title');
-			$table->enum('type', MaintenanceRequest::TYPES);
+			$table->enum('type', MaintenanceRequest::TYPES)->nullable();
 			$table->longText('description');
 			$table->enum('status', MaintenanceRequest::STATUSES)->default('new');
 			$table->integer('quote')->nullable();

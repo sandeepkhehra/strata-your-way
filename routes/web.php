@@ -18,6 +18,8 @@ Route::get('invited/{token}/{id}', 'ValidateInvitedUserController@validateInvite
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+	Route::get('maintenance/new-post', 'MaintenanceRequestController@createPost')->name('maintenance.createPost');
+	Route::get('maintenance/new-post/{post}', 'MaintenanceRequestController@editPost')->name('maintenance.editPost');
 	Route::resource('maintenance', 'MaintenanceRequestController');
 	Route::get('community/upload/{community}', 'CommunityController@upload')->name('community.new');
 	Route::post('community/invite', 'CommunityController@invite');
