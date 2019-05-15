@@ -16,7 +16,7 @@
 				<div class="form-group row">
 					<label for="doc_type" class="col-md-4 col-form-label text-md-right">Document Type</label>
 					<div class="col-md-6">
-						<select name="doc_type" id="doc_type" class="custom-select">
+						<select name="doc_type" id="doc_type" class="custom-select" required>
 							<option value="" selected disabled>&mdash; Select document type &mdash;</option>
 							@foreach ($community::DOC_TYPES as $key => $type)
 								<option value="{{ $type }}">{{ $key }}</option>
@@ -30,7 +30,7 @@
 					<div class="col-md-6">
 						<div class="input-group">
 							<div class="custom-file">
-								<input type="file" name="file" class="custom-file-input" id="file">
+								<input type="file" name="file" class="custom-file-input" id="file" required>
 								<label class="custom-file-label" for="file">Choose Document file</label>
 							</div>
 						</div>
