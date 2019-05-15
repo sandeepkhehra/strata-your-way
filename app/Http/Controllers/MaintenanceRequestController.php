@@ -96,9 +96,12 @@ class MaintenanceRequestController extends Controller
 		elseif ($maintenance->status === 'allocated') :
 			$maintenance->assigned = $request->assigned;
 		elseif ($maintenance->status === 'invoiced') :
-			$path = $request->file('attachment')->storeAs('public/invoices', $request->file('attachment')->getClientOriginalName());
+			if (!is_null($request->file('attachment'))) {
+				$path = $request->file('attachment')->storeAs('public/invoices', $request->file('attachment')->getClientOriginalName());
+				$maintenance->attachment = $path;
+			}
+
 			$maintenance->invoice = $request->invoice;
-			$maintenance->attachment = $path;
 		endif;
 
 		$maintenance->comments = $request->comments;

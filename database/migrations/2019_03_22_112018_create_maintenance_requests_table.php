@@ -21,8 +21,8 @@ class CreateMaintenanceRequestsTable extends Migration
 			$table->enum('type', MaintenanceRequest::TYPES)->nullable();
 			$table->longText('description');
 			$table->enum('status', MaintenanceRequest::STATUSES)->default('new');
-			$table->integer('quote')->nullable();
-			$table->integer('invoice')->nullable();
+			$table->string('quote')->nullable();
+			$table->string('invoice')->nullable();
 			$table->bigInteger('assigned')->nullable();
 			$table->longText('contractors')->nullable();
 			$table->string('comments')->nullable();

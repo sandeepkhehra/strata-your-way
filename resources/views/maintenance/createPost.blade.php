@@ -33,7 +33,7 @@
 					<div class="form-group row">
 						<label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 						<div class="col-md-6">
-							<textarea name="description" id="description" class="form-control"></textarea>
+							<textarea name="description" id="description" class="form-control" required></textarea>
 						</div>
 					</div>
 					<div class="form-group row">
