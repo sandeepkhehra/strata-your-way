@@ -63,12 +63,10 @@
 						<select name="users[]" id="users" class="custom-select has-select2" multiple>
 							<option value="" disabled>Select a user</option>
 							@php($users = $community->users ? $community->users : [])
-							@forelse ($users as $userID)
-								@php($user = App\User::find($userID))
-
+							@forelse ($lotUsers as $user)
 								@if ($user)
 									<option value="{{ $user->id }}"
-										{{ (int) $user->id === (int) $userID ? 'selected' : '' }}
+										{{ in_array($user->id, $users) ? 'selected' : '' }}
 										>{{ $user->name }} ({{ $user->email }})</option>
 								@endif
 							@empty

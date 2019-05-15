@@ -19,7 +19,7 @@ class UserDetailController extends Controller
     {
 		$usersID = Auth::user()->type === 3
 			? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)->users
-			: Auth::user()->community;
+			: Auth::user()->community->users;
 		$users = [];
 
 		foreach ($usersID as $userID) {
@@ -94,7 +94,7 @@ class UserDetailController extends Controller
      */
     public function edit(UserDetail $user)
     {
-		$admin = Auth::user();
+		$admin = $user->user;
 
 		return view('user.edit', compact('admin', 'user'));
     }
@@ -119,8 +119,9 @@ class UserDetailController extends Controller
 		$user->details = $rawDetails;
 		$user->update();
 
-		$authUser = Auth::user();
+		$authUser = $user->user;
 		$authUser->name = $request->name;
+		$authUser->email = $request->email['1'];
 		$authUser->update();
 
 		$request->session()->flash('status', 'Details updated successfully!');

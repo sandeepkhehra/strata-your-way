@@ -94,7 +94,9 @@ class CommunityController extends Controller
      */
     public function edit(Community $community)
     {
-        return view('community.edit', compact('community'));
+		$lotUsers = User::where(['type' => 1])->get();
+
+        return view('community.edit', compact('community', 'lotUsers'));
     }
 
     /**
@@ -108,7 +110,10 @@ class CommunityController extends Controller
     {
 		if (isset($request->doc_type)) {
 			$documents = $community->documents;
-			$documents[$request->doc_type][] = $request->file('file')->storeAs('public/community_documents', $request->file('file')->getClientOriginalName());
+			$documents[$request->doc_type][] = [
+				'file' => $request->file('file')->storeAs('public/community_documents', $request->file('file')->getClientOriginalName()),
+				'time' => date('Y-m-d H:i:s'),
+			];
 			$community->documents = $documents;
 			$community->update();
 		} else {
@@ -120,7 +125,7 @@ class CommunityController extends Controller
 			]);
 		}
 
-		$request->session()->flash('status', 'Document uploaded successfully!');
+		$request->session()->flash('status', 'Task completed successfully!');
 
 		return redirect('/');
     }
@@ -158,16 +163,18 @@ class CommunityController extends Controller
 
 	public function getDoc(Community $community, $docType)
 	{
-		$documents = Community::value('documents');
+		$documents = $community->documents;
 		$return = [];
 
 		if (isset($documents[$docType])) :
 			$order = array_reverse($documents[$docType]);
 
 			foreach ($order as $document) :
-				$exists = Storage::disk('local')->exists($document);
+				$exists = Storage::disk('local')->exists($document['file']);
 				if ($exists) {
-					$return[] = '<a href="'.Storage::url($document).'">'. ltrim($document, 'public/community_documents/') .'</a> <button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document) .'" data-community="'. $community->id .'"><i class="fa fa-trash"></i> Delete</button>';
+					$return[] = '<a href="'.Storage::url($document['file']).'" download="'. Storage::url($document['file']) .'">'. str_replace('public/community_documents/', '', $document['file']) .'</a>
+					<span class="text-muted" style="margin-left:100px">'. $document['time'] .'</span>
+					<button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document['file']) .'" data-community="'. $community->id .'"><i class="fa fa-trash"></i> Delete</button>';
 				}
 			endforeach;
 		endif;

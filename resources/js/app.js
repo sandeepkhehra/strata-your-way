@@ -53,7 +53,11 @@ jQuery(function() {
 
 	$('#import-csv-user').on('submit', function(e) {
 		e.preventDefault()
-		const formData = new FormData(this)
+		const _this = $(this)
+		const formData = new FormData
+		formData.append('csv-file', document.querySelector('#import-csv').files[0])
+
+		_this.find('button[type="submit"]').prop('disabled', true)
 
 		axios.post('/user/import', formData, {
 			headers: {
@@ -61,8 +65,12 @@ jQuery(function() {
 				'Content-Type': 'multipart/form-data'
 			}
 		})
-		.then(response => {
-        	console.log(response.data);
+		.then(resp => {
+			if (resp.data.type === 'success') {
+				alert('Users imported successfully!')
+				$('#import-owner').modal('hide')
+				_this.find('button[type="submit"]').prop('disabled', false)
+			}
     	});
 	})
 
@@ -115,6 +123,11 @@ jQuery(function() {
 			$(this).css('background-color', 'red').remove()
 		}))
 	})
+
+	$('input[type="file"]').change(function(e){
+		const fileName = e.target.files[0].name;
+		$(this).next('label').html(fileName)
+    });
 
 	$('.has-select2').select2()
 })

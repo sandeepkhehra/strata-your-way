@@ -32,6 +32,7 @@
 						<label for="assigned" class="col-md-4 col-form-label text-md-right">Allocate User</label>
 						<div class="col-md-6">
 							<select name="assigned" id="assigned" class="form-control">
+								<option value="">Select a User</option>
 								@forelse ($adminUsers as $userID)
 									@php($user = App\User::find($userID))
 

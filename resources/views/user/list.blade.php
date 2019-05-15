@@ -27,10 +27,9 @@
 							<th scope="row">{{ $loop->iteration }}</th>
 							<td>{{ $user->name }}</td>
 							<td>{{ $user->email }}</td>
-							<td>{{ $user->details['phone'] }}</td>
-							<td>{{ $user->created_at }}</td>
+							<td>{{ $user->userDetail->details->tel->mobile }}</td>
+							<td>{{ $user->created_at->diffForHumans() }}</td>
 							<td>
-								<a href="{{ route('user.show', $user->userDetail->id) }}" class="btn btn-secondary">View</a>
 								<a href="{{ route('user.edit', $user->userDetail->id) }}" class="btn btn-info">Edit</a>
 							</td>
 						</tr>
