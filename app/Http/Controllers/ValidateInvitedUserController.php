@@ -20,7 +20,7 @@ class ValidateInvitedUserController extends Controller
 
 			if (! is_null($user) && $community = Community::where(['id' => $isValid->community_id])->first()) {
 				/** Update the Community users if not already exists. */
-				$communityUsers = $community->users;
+				$communityUsers = $community->users ? $community->users : [];
 
 				if (! in_array($id, $communityUsers)) $communityUsers[] = $id;
 

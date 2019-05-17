@@ -25336,24 +25336,36 @@ jQuery(function () {
         'Content-Type': 'multipart/form-data'
       }
     }).then(function (resp) {
-      if (resp.data.type === 'success') {
-        alert('Users imported successfully!');
-        $('#import-owner').modal('hide');
+      alert(resp.data.msg);
 
-        _this.find('button[type="submit"]').prop('disabled', false);
+      if (resp.data.type === 'success') {
+        $('#import-owner').modal('hide');
+        location.reload();
+      } else if (resp.data.type === 'error') {
+        $('input[name="import-csv"]').addClass('is-invalid');
       }
+
+      _this.find('button[type="submit"]').prop('disabled', false);
     });
   });
   $('#send-comm-link').on('submit', function (e) {
     e.preventDefault();
     var formData = new FormData(this);
+    var btn = $(this).find('button[type="submit"]');
+    btn.prop('disabled', true);
     axios.post('/community/invite', formData, {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         'Content-Type': 'multipart/form-data'
       }
-    }).then(function (response) {
-      console.log(response.data);
+    }).then(function (resp) {
+      alert(resp.data.msg);
+
+      if (resp.data.type === 'success') {
+        $('#community-link').modal('hide');
+      }
+
+      btn.prop('disabled', false);
     });
   });
   $('#generate-levy-report').on('submit', function (e) {

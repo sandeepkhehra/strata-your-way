@@ -66,17 +66,26 @@ jQuery(function() {
 			}
 		})
 		.then(resp => {
+			alert(resp.data.msg)
+
 			if (resp.data.type === 'success') {
-				alert('Users imported successfully!')
 				$('#import-owner').modal('hide')
-				_this.find('button[type="submit"]').prop('disabled', false)
+				location.reload()
 			}
+			else if (resp.data.type === 'error') {
+				$('input[name="import-csv"]').addClass('is-invalid')
+			}
+
+			_this.find('button[type="submit"]').prop('disabled', false)
     	});
 	})
 
 	$('#send-comm-link').on('submit', function(e) {
 		e.preventDefault()
 		const formData = new FormData(this)
+		const btn = $(this).find('button[type="submit"]')
+
+		btn.prop('disabled', true)
 
 		axios.post('/community/invite', formData, {
 			headers: {
@@ -84,9 +93,15 @@ jQuery(function() {
 				'Content-Type': 'multipart/form-data'
 			}
 		})
-		.then(response => {
-        	console.log(response.data);
-    	});
+		.then(resp => {
+			alert(resp.data.msg)
+
+			if (resp.data.type === 'success') {
+				$('#community-link').modal('hide')
+			}
+
+			btn.prop('disabled', false)
+		});
 	})
 
 	$('#generate-levy-report').on('submit', function(e) {

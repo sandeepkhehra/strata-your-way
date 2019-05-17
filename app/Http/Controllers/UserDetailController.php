@@ -20,6 +20,8 @@ class UserDetailController extends Controller
 		$usersID = Auth::user()->type === 3
 			? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)->users
 			: Auth::user()->community->users;
+		$usersID = $usersID ? $usersID : [];
+
 		$users = [];
 
 		foreach ($usersID as $userID) {

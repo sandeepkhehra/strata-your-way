@@ -157,8 +157,10 @@ class CommunityController extends Controller
 			Mail::to($invitedUser->userDetail->details->email->{'1'})->send(new InviteUser($invitedUser, $user->community, $invite));
 		}
 
-		// $users = User::findMany($userIDs);
-
+		echo json_encode([
+			'type' => 'success',
+			'msg' => 'Invite(s) sent successfully!',
+		]);
 	}
 
 	public function getDoc(Community $community, $docType)
@@ -172,7 +174,7 @@ class CommunityController extends Controller
 			foreach ($order as $document) :
 				$exists = Storage::disk('local')->exists($document['file']);
 				if ($exists) {
-					$return[] = '<a href="'.Storage::url($document['file']).'" download="'. Storage::url($document['file']) .'">'. str_replace('public/community_documents/', '', $document['file']) .'</a>
+					$return[] = '<a href="'.Storage::url($document['file']).'" download="'. str_replace('public/community_documents/', '', $document['file']) .'">'. str_replace('public/community_documents/', '', $document['file']) .'</a>
 					<span class="text-muted" style="margin-left:100px">'. $document['time'] .'</span>
 					<button class="btn btn-danger float-right" data-doc-delete="'. Storage::url($document['file']) .'" data-community="'. $community->id .'"><i class="fa fa-trash"></i> Delete</button>';
 				}

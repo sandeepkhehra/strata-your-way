@@ -18,44 +18,53 @@ class UsersImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $rows)
     {
-		foreach ($rows as $row) {
-			$user = User::create([
-				'name' => $row['name'],
-				'password' => Hash::make($row['email_address_1']),
-				'email' => $row['email_address_1'],
-				'type' => 1,
+		try {
+			foreach ($rows as $row) {
+				$user = User::create([
+					'name' => $row['name'],
+					'password' => Hash::make($row['email_address_1']),
+					'email' => $row['email_address_1'],
+					'type' => 1,
+				]);
+
+				$rawDetails = [
+					'tel' => [
+						'home' => $row['home_phone_number'],
+						'mobile' => $row['mobile_number'],
+					],
+					'email' => [
+						'1' => $row['email_address_1'],
+						'2' => $row['email_address_2'],
+						'3' => $row['email_address_3'],
+					],
+					'medium' => null,
+					'address' => [
+						'1' => $row['address_line_1'],
+						'2' => $row['address_line_2'],
+						'postal' => $row['post_code'],
+						'country' => 'AUS',
+						'state' => $row['state'],
+					],
+					'communication' => null,
+				];
+
+				$userDetail = UserDetail::create([
+					'user_id' => $user->id,
+					'details' => $rawDetails,
+				]);
+
+			}
+
+			echo json_encode([
+				'type' => 'success',
+				'msg' => 'Users imported successfully!',
 			]);
-
-			$rawDetails = [
-				'tel' => [
-					'home' => $row['home_phone_number'],
-					'mobile' => $row['mobile_number'],
-				],
-				'email' => [
-					'1' => $row['email_address_1'],
-					'2' => $row['email_address_2'],
-					'3' => $row['email_address_3'],
-				],
-				'medium' => null,
-				'address' => [
-					'1' => $row['address_line_1'],
-					'2' => $row['address_line_2'],
-					'postal' => $row['post_code'],
-					'country' => 'AUS',
-					'state' => $row['state'],
-				],
-				'communication' => null,
-			];
-
-			$userDetail = UserDetail::create([
-				'user_id' => $user->id,
-				'details' => $rawDetails,
+		} catch (\Illuminate\Database\QueryException $exception) {
+			$errorInfo = $exception->errorInfo;
+			echo json_encode([
+				'type' => 'error',
+				'msg' => $errorInfo[2],
 			]);
-
 		}
-
-		echo json_encode([
-			'type' => 'success',
-		]);
     }
 }
