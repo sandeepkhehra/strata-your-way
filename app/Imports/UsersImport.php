@@ -28,10 +28,12 @@ class UsersImport implements ToCollection, WithHeadingRow
 				]);
 
 				$rawDetails = [
+					'uno' => $row['user_no'],
 					'tel' => [
 						'home' => $row['home_phone_number'],
 						'mobile' => $row['mobile_number'],
 					],
+					'area' => $row['area'],
 					'email' => [
 						'1' => $row['email_address_1'],
 						'2' => $row['email_address_2'],

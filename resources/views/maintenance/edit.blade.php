@@ -93,7 +93,7 @@
 				<div class="form-group row">
 					<label for="comments" class="col-md-4 col-form-label text-md-right">Additional Comments</label>
 					<div class="col-md-6">
-						<textarea name="comments" id="comments" class="form-control">{{ $maintenance->comments }}</textarea>
+						<textarea name="comments" id="comments" class="form-control">{{ ! is_array($maintenance->comments) ? $maintenance->comments : '' }}</textarea>
 					</div>
 				</div>
 

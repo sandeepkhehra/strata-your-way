@@ -24,7 +24,7 @@
 					@forelse ($users as $user)
 						@if (! is_null($user))
 						<tr>
-							<th scope="row">{{ $loop->iteration }}</th>
+							<th scope="row">{{ isset($user->userDetail->details->uno) ? $user->userDetail->details->uno : $user->id }}</th>
 							<td>{{ $user->name }}</td>
 							<td>{{ $user->email }}</td>
 							<td>{{ $user->userDetail->details->tel->mobile }}</td>

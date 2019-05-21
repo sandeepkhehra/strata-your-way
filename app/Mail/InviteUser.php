@@ -26,7 +26,7 @@ class InviteUser extends Mailable
     public function __construct(User $user, Community $community, UserInviteToken $token)
     {
 		$this->community = $community;
-		$this->token = $token::where(['community_id' => $this->community->id])->value('token');
+		$this->token = $token::value('token');
 		$this->user = $user;
     }
 

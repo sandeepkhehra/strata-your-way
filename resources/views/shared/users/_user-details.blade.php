@@ -1,4 +1,11 @@
 <div class="form-group row">
+	<label for="name" class="col-md-4 col-form-label text-md-right">User No.</label>
+	<div class="col-md-6">
+		<input type="text" value="{{ isset($admin->userDetail->details->uno) ? $admin->userDetail->details->uno : $admin->id }}" class="form-control" disabled>
+	</div>
+</div>
+
+<div class="form-group row">
 	<label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 	<div class="col-md-6">
 		<input
@@ -116,6 +123,13 @@
 			placeholder="Mobile phone number"
 			class="form-control"
 		/>
+	</div>
+</div>
+
+<div class="form-group row">
+	<label for="tel" class="col-md-4 col-form-label text-md-right">Area</label>
+	<div class="col-md-6">
+		<input type="text" name="area" value="{{ isset($admin->userDetail->details->area) ? $admin->userDetail->details->area : '' }}" class="form-control">
 	</div>
 </div>
 

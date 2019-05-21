@@ -54,12 +54,12 @@ class UserDetailController extends Controller
     {
 		$rawDetails = [
 			'tel' => $request->tel,
+			'area' => $request->area,
 			'email' => $request->email,
 			'medium' => $request->medium,
 			'address' => $request->address,
 			'communication' => $request->communication,
 		];
-
 
 		$user = Auth::user();
 		$user->name = $request->name;
@@ -112,6 +112,7 @@ class UserDetailController extends Controller
     {
         $rawDetails = [
 			'tel' => $request->tel,
+			'area' => $request->area,
 			'email' => $request->email,
 			'medium' => $request->medium,
 			'address' => $request->address,

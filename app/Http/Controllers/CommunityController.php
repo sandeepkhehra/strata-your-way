@@ -6,6 +6,7 @@ use App\User;
 use App\Community;
 use App\UserInviteToken;
 use App\Mail\InviteUser;
+use App\MaintenanceRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -116,6 +117,20 @@ class CommunityController extends Controller
 			];
 			$community->documents = $documents;
 			$community->update();
+
+			$documentPost = new MaintenanceRequest;
+			$documentPost->user_id = Auth::id();
+			$documentPost->community_id = Auth::user()->community->id;
+			$documentPost->title = $request->file('file')->getClientOriginalName();
+			$documentPost->description = ''; // Leaving this blank for this case.
+			$documentPost->contractors = [
+				'doc_type' => array_search($request->doc_type, Community::DOC_TYPES),
+				'file_path' => $request->file('file')->storeAs('public/community_documents', $request->file('file')->getClientOriginalName()),
+			]; // Just doing this to mark it unique. Using 'contractor' field as it is already casted as array.
+
+			$documentPost->save();
+
+			$request->session()->flash('status', 'Document uploaded successfully!');
 		} else {
 			$community->update([
 				'name' => $request->name,
@@ -123,9 +138,9 @@ class CommunityController extends Controller
 				'details' => $request->details,
 				'users' => $request->users,
 			]);
-		}
 
-		$request->session()->flash('status', 'Task completed successfully!');
+			$request->session()->flash('status', 'Community details updated successfully!');
+		}
 
 		return redirect('/');
     }
