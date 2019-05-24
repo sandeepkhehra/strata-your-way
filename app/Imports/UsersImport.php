@@ -4,8 +4,10 @@ namespace App\Imports;
 
 use App\User;
 use App\UserDetail;
+use App\Community;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -25,6 +27,7 @@ class UsersImport implements ToCollection, WithHeadingRow
 					'password' => Hash::make($row['email_address_1']),
 					'email' => $row['email_address_1'],
 					'type' => 1,
+					'imported_by' => Auth::user()->community->id,
 				]);
 
 				$rawDetails = [
@@ -54,7 +57,6 @@ class UsersImport implements ToCollection, WithHeadingRow
 					'user_id' => $user->id,
 					'details' => $rawDetails,
 				]);
-
 			}
 
 			echo json_encode([

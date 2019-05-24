@@ -17,17 +17,16 @@ class UserDetailController extends Controller
      */
     public function index()
     {
-		$usersID = Auth::user()->type === 3
-			? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)->users
-			: Auth::user()->community->users;
-		$usersID = $usersID ? $usersID : [];
+		// $usersID = Auth::user()->type === 3
+		// 	? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)->users
+		// 	: Auth::user()->community->users;
+		// $usersID = $usersID ? $usersID : [];
 
-		$users = [];
+		$admin = Auth::user()->type === 3
+			? Auth::user()->community = Community::find(Auth::user()->userDetail->details->referredCommunity)
+			: Auth::user()->community;
 
-		foreach ($usersID as $userID) {
-			if (Auth::id() !== (int) $userID && $user = User::find($userID))
-				$users[] = $user;
-		}
+		$users = User::where(['type' => 1, 'imported_by' => Auth::user()->community->id])->get();
 
         return view('user.list', compact('users'));
 	}

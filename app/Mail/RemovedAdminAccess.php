@@ -4,18 +4,16 @@ namespace App\Mail;
 
 use App\User;
 use App\Community;
-use App\UserInviteToken;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class InviteUser extends Mailable
+class RemovedAdminAccess extends Mailable
 {
 	use Queueable, SerializesModels;
 
 	private $user;
-	private $token;
 	private $community;
 
     /**
@@ -23,11 +21,10 @@ class InviteUser extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, Community $community, UserInviteToken $token)
+    public function __construct(User $user, Community $community)
     {
-		$this->community = $community;
-		$this->token = $token->token;
 		$this->user = $user;
+        $this->community = $community;
     }
 
     /**
@@ -37,10 +34,9 @@ class InviteUser extends Mailable
      */
     public function build()
     {
-		return $this->from($this->community->email)
-			->view('emails.invite')->with([
+        return $this->from($this->community->email)
+			->view('emails.removedAccess')->with([
 					'community' => $this->community->name,
-					'token' => $this->token,
 					'user' => $this->user,
 				]);
     }

@@ -9,6 +9,7 @@ use App\Mail\InviteUser;
 use App\MaintenanceRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\RemovedAdminAccess;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -95,7 +96,7 @@ class CommunityController extends Controller
      */
     public function edit(Community $community)
     {
-		$lotUsers = User::where(['type' => 1])->get();
+		$lotUsers = User::where(['imported_by' => Auth::user()->community->id])->get();
 
         return view('community.edit', compact('community', 'lotUsers'));
     }
@@ -132,12 +133,40 @@ class CommunityController extends Controller
 
 			$request->session()->flash('status', 'Document uploaded successfully!');
 		} else {
+			$users = ! is_null($request->users) ? $request->users : [];
+			$nominatedAdmins = $community->users;
+
 			$community->update([
 				'name' => $request->name,
 				'email' => $request->email,
 				'details' => $request->details,
-				'users' => $request->users,
+				'users' => $users,
 			]);
+
+			$user = Auth::user();
+
+			$invite = UserInviteToken::create([
+				'community_id' => $user->community->id,
+				'user_ids' => $users,
+				'token' => Str::random(16),
+			]);
+
+			$removedUsers = array_diff($nominatedAdmins, $users);
+
+			foreach ($users as $userID) {
+				$invitedUser = User::findOrFail($userID);
+
+				if ($invitedUser->type !== 3)
+					Mail::to($invitedUser->userDetail->details->email->{'1'})->send(new InviteUser($invitedUser, $user->community, $invite));
+			}
+
+			foreach ($removedUsers as $userID) {
+				$removedUser = User::findOrFail($userID);
+				$removedUser->type = 1;
+				$removedUser->update();
+
+				Mail::to($removedUser->userDetail->details->email->{'1'})->send(new RemovedAdminAccess($removedUser, $user->community));
+			}
 
 			$request->session()->flash('status', 'Community details updated successfully!');
 		}

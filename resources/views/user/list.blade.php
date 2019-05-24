@@ -30,7 +30,7 @@
 							<td>{{ $user->userDetail->details->tel->mobile }}</td>
 							<td>{{ $user->created_at->diffForHumans() }}</td>
 							<td>
-								<a href="{{ route('user.edit', $user->userDetail->id) }}" class="btn btn-info">Edit</a>
+								<a href="{{ route('user.edit', $user->userDetail->id) }}" class="btn btn-info btn-sm">Edit</a>
 							</td>
 						</tr>
 						@endif
