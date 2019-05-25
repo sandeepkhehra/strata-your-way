@@ -170,7 +170,10 @@ class CommunityController extends Controller
 				$removedUser->type = 1;
 				$removedUser->update();
 
-				Mail::to($removedUser->userDetail->details->email->{'1'})->send(new RemovedAdminAccess($removedUser, $user->community));
+				Mail::to($removedUser->userDetail->details->email->{'1'})
+					->send(new RemovedAdminAccess($removedUser, $user->community));
+
+				$this->flagInviteSent($removedUser->userDetail, 0);
 			}
 
 			$request->session()->flash('status', 'Community details updated successfully!');
@@ -218,10 +221,10 @@ class CommunityController extends Controller
 		]);
 	}
 
-	public function flagInviteSent($userDetails)
+	public function flagInviteSent($userDetails, $flag = 1)
 	{
 		$details = $userDetails->details;
-		$details->invited = 1;
+		$details->invited = $flag;
 		$userDetails->details = $details;
 		$userDetails->update();
 	}

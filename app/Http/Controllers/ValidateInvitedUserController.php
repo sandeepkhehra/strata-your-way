@@ -6,6 +6,7 @@ use App\User;
 use App\Community;
 use App\UserInviteToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ValidateInvitedUserController extends Controller
 {
@@ -41,7 +42,9 @@ class ValidateInvitedUserController extends Controller
 				/** Delete the invited code history. */
 				$isValid->delete();
 
-				return redirect('/');
+				Auth::login($user);
+
+				return redirect('/')->with('status', 'You are successfully registered to this community!');
 			}
 		} else {
 			return redirect('/');
