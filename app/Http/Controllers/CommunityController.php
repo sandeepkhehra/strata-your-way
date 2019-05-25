@@ -156,8 +156,13 @@ class CommunityController extends Controller
 			foreach ($users as $userID) {
 				$invitedUser = User::findOrFail($userID);
 
-				if ($invitedUser->type !== 3)
+				if ($invitedUser->type !== 3 &&
+					(! isset($invitedUser->userDetail->details->invited) || $invitedUser->userDetail->details->invited !== 1)) :
 					Mail::to($invitedUser->userDetail->details->email->{'1'})->send(new InviteUser($invitedUser, $user->community, $invite));
+
+					// Flag user as invited.
+					$this->flagInviteSent($invitedUser->userDetail);
+				endif;
 			}
 
 			foreach ($removedUsers as $userID) {
@@ -198,13 +203,27 @@ class CommunityController extends Controller
 
 		foreach ($userIDs as $userID) {
 			$invitedUser = User::findOrFail($userID);
-			Mail::to($invitedUser->userDetail->details->email->{'1'})->send(new InviteUser($invitedUser, $user->community, $invite));
+
+			if (! isset($invitedUser->userDetail->details->invited) || $invitedUser->userDetail->details->invited !== 1)
+				Mail::to($invitedUser->userDetail->details->email->{'1'})
+					->send(new InviteUser($invitedUser, $user->community, $invite));
+
+			// Flag user as invited.
+			$this->flagInviteSent($invitedUser->userDetail);
 		}
 
 		echo json_encode([
 			'type' => 'success',
 			'msg' => 'Invite(s) sent successfully!',
 		]);
+	}
+
+	public function flagInviteSent($userDetails)
+	{
+		$details = $userDetails->details;
+		$details->invited = 1;
+		$userDetails->details = $details;
+		$userDetails->update();
 	}
 
 	public function getDoc(Community $community, $docType)

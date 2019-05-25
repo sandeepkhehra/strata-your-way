@@ -4,7 +4,7 @@
 	$exists = true;
 
 	if ($isDoc) :
-		$docPath = Storage::url($request->contractors['file_path']);
+		$docPath = isset($request->contractors['file_path']) ? Storage::url($request->contractors['file_path']) : '#';
 		$checkPath = str_replace('/storage', '/public', $docPath);
 		$exists = Storage::exists($checkPath);
 		if (! $exists) $docPath = '#';
@@ -17,7 +17,8 @@
 				($isPost ? route('maintenance.editPost', $request->id) :
 				(Auth::user()->type != 0 ? '#' : route('maintenance.edit', $request->id))) }}"
 
-		class="list-group-item list-group-item-action flex-column align-items-start{{ ! $exists ? ' list-group-item-danger' : '' }}">
+		class="list-group-item list-group-item-action flex-column align-items-start{{ ! $exists ? ' list-group-item-danger' : '' }}"
+		{!! $isDoc && $exists ? 'download="'. $request->title .'"' : '' !!}>
 		<div class="d-flex w-100 justify-content-between">
 			@if ($request->type)
 			<h6 class="mb-1">Maintenance Issue #{{ $request->id }} has been Logged: <br><small>{{ array_search($request->type, $request::TYPES) }}</small></h6>
