@@ -66,6 +66,7 @@ jQuery(function() {
 			}
 		})
 		.then(resp => {
+			console.log('sss', resp)
 			alert(resp.data.msg)
 
 			if (resp.data.type === 'success') {
@@ -77,7 +78,11 @@ jQuery(function() {
 			}
 
 			_this.find('button[type="submit"]').prop('disabled', false)
-    	});
+		})
+		.catch(err => {
+			alert(err.response.data.message)
+			_this.find('button[type="submit"]').prop('disabled', false)
+		})
 	})
 
 	$('#send-comm-link').on('submit', function(e) {

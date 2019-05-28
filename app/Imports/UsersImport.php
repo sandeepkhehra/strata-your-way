@@ -8,6 +8,7 @@ use App\Community;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -21,7 +22,26 @@ class UsersImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
 		try {
+			Validator::make($rows->toArray(), [
+				'*.email_address_1' => 'required|email',
+				'*.email_address_2' => 'required|email',
+				'*.email_address_3' => 'required|email',
+				'*.mobile_number' => 'required',
+			])->validate();
+
 			foreach ($rows as $row) {
+				$allUserDetails = UserDetail::get('details');
+
+				foreach ($allUserDetails as $userDetail) :
+					if ($userDetail->details->tel->mobile == $row['mobile_number']) :
+						echo json_encode([
+							'type' => 'error',
+							'msg' => 'This mobile number already exists!',
+						]);
+						die();
+					endif;
+				endforeach;
+
 				$user = User::create([
 					'name' => $row['name'],
 					'password' => Hash::make($row['email_address_1']),
@@ -70,5 +90,5 @@ class UsersImport implements ToCollection, WithHeadingRow
 				'msg' => $errorInfo[2],
 			]);
 		}
-    }
+	}
 }

@@ -25336,6 +25336,7 @@ jQuery(function () {
         'Content-Type': 'multipart/form-data'
       }
     }).then(function (resp) {
+      console.log('sss', resp);
       alert(resp.data.msg);
 
       if (resp.data.type === 'success') {
@@ -25344,6 +25345,10 @@ jQuery(function () {
       } else if (resp.data.type === 'error') {
         $('input[name="import-csv"]').addClass('is-invalid');
       }
+
+      _this.find('button[type="submit"]').prop('disabled', false);
+    }).catch(function (err) {
+      alert(err.response.data.message);
 
       _this.find('button[type="submit"]').prop('disabled', false);
     });

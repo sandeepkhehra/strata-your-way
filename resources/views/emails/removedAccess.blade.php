@@ -1,1 +1,3 @@
-lool dummm removed access
+Your admin access has been removed.
+
+DUMMY TEXT!
