@@ -14,7 +14,7 @@
 					<tr>
 						<th scope="col">User No.</th>
 						<th scope="col">Name</th>
-						<th scope="col">Email</th>
+						<th scope="col">Postal Address</th>
 						<th scope="col">Phone</th>
 						<th scope="col">Joined At</th>
 						<th scope="col">Action</th>
@@ -26,7 +26,7 @@
 						<tr>
 							<th scope="row">{{ isset($user->userDetail->details->uno) ? $user->userDetail->details->uno : $user->id }}</th>
 							<td>{{ $user->name }}</td>
-							<td>{{ $user->email }}</td>
+							<td>{{ $user->userDetail->details->address->{"1"} }}</td>
 							<td>{{ $user->userDetail->details->tel->mobile }}</td>
 							<td>{{ $user->created_at->diffForHumans() }}</td>
 							<td>

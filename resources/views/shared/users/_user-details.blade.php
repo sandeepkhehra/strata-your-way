@@ -1,7 +1,7 @@
 <div class="form-group row">
 	<label for="name" class="col-md-4 col-form-label text-md-right">User No.</label>
 	<div class="col-md-6">
-		<input type="text" value="{{ isset($admin->userDetail->details->uno) ? $admin->userDetail->details->uno : $admin->id }}" class="form-control" disabled>
+		<input type="text" value="{{ isset($admin->userDetail->details->uno) ? $admin->userDetail->details->uno : $admin->id }}" class="form-control" {!! Auth::user()->type === 0 ? 'name="uno"' : 'disabled' !!}>
 	</div>
 </div>
 

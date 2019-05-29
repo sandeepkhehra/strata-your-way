@@ -118,6 +118,8 @@ class UserDetailController extends Controller
 			'communication' => $request->communication,
 		];
 
+		if (Auth::user()->type === 0) $rawDetails['uno'] = $request->uno;
+
 		$user->details = $rawDetails;
 		$user->update();
 
