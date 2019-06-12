@@ -80,14 +80,6 @@ class CommunityController extends Controller
         return view('community.docView', compact('community'));
 	}
 
-	public function documentData(Community $community)
-	{
-		echo "<pre>";
-		print_r($community);
-		print_r($_POST);
-		echo "</pre>";
-	}
-
     /**
      * Show the form for editing the specified resource.
      *
