@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function() {
-	return view('landing.page');
-});
+Route::get('/', 'GetQuoteController@index');
 
 Route::get('invited/{token}/{id}', 'ValidateInvitedUserController@validateInvite')->name('validate.invite');
 
