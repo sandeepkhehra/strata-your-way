@@ -27,9 +27,9 @@ class GetQuote extends Mailable
 		$this->formType = $formType;
 		$this->formData = $formData;
 
-		$this->subject =  $this->formType === 'quote' ? 'Your Quote!' : (
-			$this->formType === 'contact' ? 'Thanks for Contacting Strata Your Way' :
-			'A user sent you an email - Strata Your Way'
+		$this->subject =  $this->formType === 'quote' ? 'Your Quote! - ' . $this->formData['quoteNo'] : (
+			$this->formType === 'contact' ? 'Someone has contacted you with a question' :
+			'Possible move to a self-managed community'
 		);
     }
 

@@ -18,10 +18,12 @@ class GetQuoteController extends Controller
 	public function getQuote(Request $request)
 	{
 		$quoteData =  $request->all();
+		$quoteData['quoteNo'] = substr(md5($quoteData['user_email'] . microtime()), 0, 6);
+
 		Mail::to($request->user_email)
 			->send(new GetQuote($quoteData));
 
-		Mail::to('contact@stratayoaurway.com.au')
+		Mail::to('contact@stratayourway.com.au')
 			->send(new GetQuote($quoteData, 'quote', 'admin'));
 	}
 
@@ -37,7 +39,7 @@ class GetQuoteController extends Controller
 	{
 		$contactData =  $request->all();
 
-		Mail::to($request->send_to)
+		Mail::to('admin@stratayourway.com.au')
 			->send(new GetQuote($contactData, 'contactOther'));
 	}
 }

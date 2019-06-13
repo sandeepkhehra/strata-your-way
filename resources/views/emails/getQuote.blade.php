@@ -1,8 +1,5 @@
 @if ( $formType === 'contact' )
-	Hello Admin,<br>
-	The user {{ $formData['name'] }} ({{ $formData['email'] }}) contacted you via the contact form on the landing page.
-	<br>
-	Here are the details of the message:<br><br>
+	Hi Team, the following website user has contacted you with a question:<br>
 
 	<ul>
 		<li><strong>Name</strong> - {{ $formData['name'] }}</li>
@@ -15,25 +12,22 @@
 	</ul>
 
 @elseif ( $formType === 'quote' )
-	Hello,
-
-	Here is your quoted result:-
+	<img src="{{ asset('images/logo.png') }}" alt="logo" style="max-width:150px"><br>
+	Hi owner, here is your quote for self-management:-<br>
 
 	<ul>
 		@foreach ($formData as $key => $data)
-			<li>{{ str_replace('_', ' ', $key) }} - {{ $data }}</li>
+			@if ($key !== 'quoteNo')
+				<li>{{ str_replace('_', ' ', $key) }} - {{ $data }}</li>
+			@endif
 		@endforeach
 	</ul>
 
-	@if ($for === 'admin')
-	<strong>Quote number 123 has been generated and sent to email address {{ $formData['user_email'] }}</strong>
-	@endif
+	<strong>Quote number {{ $formData['quoteNo'] }} has been generated and sent to email address {{ $formData['user_email'] }}</strong>
 
 @elseif ( $formType === 'contactOther' )
-	Hello,<br>
-	The user {{ $formData['full_name'] }} ({{ $formData['full_email'] }}) contacted you regarding {{ $formData['subject'] }}
-	<br>
-	Here are the details of the message:<br><br>
+	<img src="{{ asset('images/logo.png') }}" alt="logo" style="max-width:150px"><br>
+	Hi, the following owner has contacted you in relation to a strata management issue:<br>
 
 	<ul>
 		<li><strong>Name</strong> - {{ $formData['full_name'] }}</li>

@@ -346,7 +346,10 @@ section.page-block .container-block {
 .input-field {
     margin: 8px 0;
 }
-.getaquate-popup form input[type="button"], .login-popo form input[type="button"], .contact-form form input[type="button"]{
+.getaquate-popup form input[type="button"],
+.login-popo form input[type="button"],
+.contact-form form input[type="button"],
+.management-quota form input[type="button"] {
     background: #50bf70;
     border: 2px solid #50bf70;
     padding: 7px 38px;
@@ -354,14 +357,20 @@ section.page-block .container-block {
     color: #fff;
     margin-top: 10px;
     border-radius: 3px;
+	cursor: pointer;
+}
+form input[type="button"]:disabled {
+	background: #2c3137;
+	border-color: #2c3137;
+	cursor: not-allowed;
 }
 .getaquate-popup, .login-popo, .contact-form {
-    position: fixed;
+    position: absolute;
     z-index: 999;
     top: 0;
     width: 100%;
     background: #000000cf;
-    height: 100vh;
+	height: calc(100vh + 100%);
     DISPLAY: FLEX;
     ALIGN-ITEMS: CENTER;
     JUSTIFY-CONTENT: CENTER;

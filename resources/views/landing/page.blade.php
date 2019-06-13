@@ -173,7 +173,7 @@
 			</div>
 			<div class="input-field">
 				<label>Subject:</label>
-				<input type="text" placeholder="Possible move to a self-managed community" name="subject">
+				<input type="text" placeholder="Possible move to a self-managed community" name="subject" readonly>
 			</div>
 		</div>
 		<div class="input-field">
@@ -225,7 +225,7 @@
 						<div class="input-field">
 							<label>State:</label>
 							<select name="state">
-								<option>Select Your State</option>
+								<option value="">Select Your State</option>
 								<option value="VIC">VIC</option>
 								<option value="NSW">NSW</option>
 								<option value="QLD">QLD</option>
@@ -532,9 +532,9 @@
 
                 <div class="monthly-hours total">
                         <p>Total strata management cost for community</p>
-						<a href="#" data-syw-quote>Email a copy of the quote to yourself </a>
+						<input type="button" data-syw-quote value="Email a copy of the quote to yourself">
 						<aside class="right-mmg" data-total-amount>13,630</aside>
-						<input type="hidden" name="Total Quote" value="">
+						<input type="hidden" name="Total quote" value="">
                     </div>
                 </div>
 
@@ -555,8 +555,22 @@
 $(document).ready(function(){
 	$('#submitForm').on('click', function(e) {
 		e.preventDefault()
-		const form = $(this).closest('form')
+		const _this = $(this)
+		const form = _this.closest('form')
 		const formData = new FormData(form[0])
+
+		$(form[0]).find('input').each(function(i, v) {
+			if ($(v).prop('readonly') === false && v.value === '') {
+				jQuery(v).css('border-color', 'red')
+				flag = false
+			} else {
+				jQuery(v).css('border-color', '#f8f8f8')
+			}
+		})
+
+		if (! flag) return
+
+		_this.prop('disabled', true)
 
 		fetch('/landing/contactOther', {
 			method: 'POST',
@@ -565,13 +579,32 @@ $(document).ready(function(){
 			},
 			body: formData,
 		}).
-		then(r => alert('Email Sent Successfully!'))
+		then(r => {
+			alert('Email Sent Successfully!')
+			$('.cross-btn').click()
+			_this.prop('disabled', false)
+		})
 	})
 
 	$('#syw-contact').on('click', function(e) {
 		e.preventDefault()
-		const form = $(this).closest('form')
+		const _this = $(this)
+		const form = _this.closest('form')
 		const formData = new FormData(form[0])
+		let flag = true
+
+		$(form[0]).find('input, select, textarea').each(function(i, v) {
+			if (v.value === '') {
+				jQuery(v).css('border-color', 'red')
+				flag = false
+			} else {
+				jQuery(v).css('border-color', '#f8f8f8')
+			}
+		})
+
+		if (! flag) return
+
+		_this.prop('disabled', true)
 
 		fetch('/landing/contact', {
 			method: 'POST',
@@ -580,12 +613,35 @@ $(document).ready(function(){
 			},
 			body: formData,
 		}).
-		then(r => alert('Email Sent Successfully!'))
+		then(r => {
+			alert('Email Sent Successfully!')
+			$('.cross-btn').click()
+			_this.prop('disabled', false)
+		})
 	})
 
 	$('[data-syw-quote]').on('click', function(e) {
 		e.preventDefault()
-		const form = $(this).closest('form')
+		const _this = $(this)
+		const emailInput = $('input[name="user_email"]')
+		const totalLot = $('input[name="Total Lots"]')
+
+		if (emailInput.val() === '') {
+			emailInput.css('border-color', 'red')
+			return
+		}
+
+		if (totalLot.val() === '') {
+			totalLot.css('border-color', 'red')
+			return
+		}
+
+		emailInput.css('border-color', '#d7d7d7')
+		totalLot.css('border-color', '#d7d7d7')
+
+		_this.prop('disabled', true)
+
+		const form = _this.closest('form')
 		const formData = new FormData(form[0])
 
 		fetch('/landing/getQuote', {
@@ -595,9 +651,14 @@ $(document).ready(function(){
 			},
 			body: formData,
 		}).
-		then(r => alert('Email Sent Successfully!'))
+		then(r => {
+			alert('Email Sent Successfully!')
+			$('.cross-btn').click()
+			_this.prop('disabled', false)
+		})
 
 	})
+
 	$('.questionFirst').each(function(){
 		$(this).click(function(){
 			$('.info-div').hide();
@@ -717,7 +778,7 @@ function calculateTotal(){
         total += parseInt( jQuery( this ).text() );
     } )
     jQuery( '[data-total-amount]' ).html( '<p>$'+ total +'</p>' )
-    jQuery( 'input[name="Total Quote"]' ).val( '$' + total )
+    jQuery( 'input[name="Total quote"]' ).val( '$' + total )
 }
 </script>
 </body>
