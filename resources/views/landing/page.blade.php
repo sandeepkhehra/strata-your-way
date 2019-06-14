@@ -173,7 +173,7 @@
 			</div>
 			<div class="input-field">
 				<label>Subject:</label>
-				<input type="text" placeholder="Possible move to a self-managed community" name="subject" readonly>
+				<input type="text" value="Possible move to a self-managed community" name="subject" readonly>
 			</div>
 		</div>
 		<div class="input-field">
@@ -558,6 +558,7 @@ $(document).ready(function(){
 		const _this = $(this)
 		const form = _this.closest('form')
 		const formData = new FormData(form[0])
+		let flag = true
 
 		$(form[0]).find('input').each(function(i, v) {
 			if ($(v).prop('readonly') === false && v.value === '') {

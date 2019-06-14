@@ -31,7 +31,7 @@ class GetQuoteController extends Controller
 	{
 		$contactData =  $request->all();
 
-		Mail::to($request->email)
+		Mail::to('contact@stratayourway.com.au')
 			->send(new GetQuote($contactData, 'contact'));
 	}
 
@@ -39,7 +39,7 @@ class GetQuoteController extends Controller
 	{
 		$contactData =  $request->all();
 
-		Mail::to('admin@stratayourway.com.au')
+		Mail::to($contactData['send_to'])
 			->send(new GetQuote($contactData, 'contactOther'));
 	}
 }
