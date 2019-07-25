@@ -29,9 +29,13 @@ Route::middleware('auth')->group(function () {
 	Route::resource('community', 'CommunityController');
 
 	Route::post('user/import', 'UserController@import');
+	Route::delete('user/delete/{user}', 'UserController@delete')->name('user.delete');
 
 	Route::post('user/levy-report', 'UserDetailController@levyReport');
 	Route::resource('user', 'UserDetailController');
+
+	Route::get('super/users', 'SuperAdminController@users')->name('super.users');
+	Route::get('super/communities', 'SuperAdminController@communities')->name('super.communities');
 });
 
 Route::post('landing/getQuote', 'GetQuoteController@getQuote');

@@ -8,6 +8,7 @@ use App\Imports\UsersImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\SuperAdminController;
 
 class UserController extends Controller
 {
@@ -36,8 +37,13 @@ class UserController extends Controller
 	{
 		$admin = Auth::user();
 
+		if ( $admin->email === 'contact@stratayourway.com.au' ) {
+			return (new SuperAdminController)->index();
+		}
+
 		// Assign parent community to lot owner.
 		$admin->type === 3 ? $admin->community = Community::find($admin->userDetail->details->referredCommunity) : '';
+
 		$lotUsers = User::where(['type' => 1, 'imported_by' => $admin->community->id])->get();
 		$maintenanceRequests = $admin->community->maintenanceRequests()->orderBy('created_at', 'DESC')->get();
 		return view('admin.index', compact( 'admin', 'lotUsers', 'maintenanceRequests'));
@@ -59,5 +65,12 @@ class UserController extends Controller
 	public function import(Request $request)
 	{
 		Excel::import(new UsersImport, $request->file('csv-file'));
+	}
+
+	public function delete(User $user)
+	{
+		$user->delete();
+
+		return redirect()->back()->with('status', 'User deleted successfully!');
 	}
 }

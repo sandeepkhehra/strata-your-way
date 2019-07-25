@@ -12,7 +12,7 @@
 	</ul>
 
 @elseif ( $formType === 'quote' )
-	<img src="{{ asset('images/color-logo.png') }}" alt="logo" style="max-width:150px"><br>
+	<img src="{{ asset('images/color-logo.png') }}" alt="logo" style="max-width:100px"><br>
 	Hi owner, here is your quote for self-management:-<br><br>
 
 	<ul>
@@ -26,7 +26,7 @@
 	<strong>Quote number {{ $formData['quoteNo'] }} has been generated and sent to email address {{ $formData['user_email'] }}</strong>
 
 @elseif ( $formType === 'contactOther' )
-	<img src="{{ asset('images/color-logo.png') }}" alt="logo" style="max-width:150px"><br><br>
+	<img src="{{ asset('images/color-logo.png') }}" alt="logo" style="max-width:100px"><br><br>
 	Hi, the following owner has contacted you in relation to a strata management issue:<br>
 
 	<ul>

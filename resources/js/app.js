@@ -147,7 +147,13 @@ jQuery(function() {
 	$('input[type="file"]').change(function(e){
 		const fileName = e.target.files[0].name;
 		$(this).next('label').html(fileName)
-    });
+	});
+
+	$('form[data-delete-user]').on('submit', function(e) {
+		if (! confirm('Are you sure you want to delete this user?')) {
+			return false;
+		}
+	})
 
 	$('.has-select2').select2()
 })
