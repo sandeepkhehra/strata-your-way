@@ -25414,7 +25414,7 @@ jQuery(function () {
     $(this).next('label').html(fileName);
   });
   $('form[data-delete-user]').on('submit', function (e) {
-    if (!confirm('Are you sure you want to delete this user?')) {
+    if (!confirm('Are you sure you want to delete this community?')) {
       return false;
     }
   });

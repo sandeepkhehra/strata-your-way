@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Community;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +11,8 @@ class SuperAdminController extends Controller
 {
     public function index()
 	{
-		return view('super-admin.super');
+		$communities = Community::all();
+		return view('super-admin.super', compact('communities'));
 	}
 
 	public function users()
@@ -21,8 +23,15 @@ class SuperAdminController extends Controller
 		return view('super-admin.all-users', compact('admin', 'users'));
 	}
 
-	public function communities()
+	public function community(Request $request, Community $community)
 	{
-		return view('super-admin.all-communities');
+		$admin = User::find($community->user_id);
+		if ( is_null( $admin ) ) {
+			$admin = (object) [
+				'community' => null,
+			];
+		}
+		$lotUsers = User::where(['imported_by' => $community->id])->get();
+		return view('super-admin.community', compact('community', 'admin', 'lotUsers'));
 	}
 }

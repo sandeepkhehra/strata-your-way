@@ -21,11 +21,13 @@
 						<tr>
 							<td colspan="3" class="pt-3" title="BPAY"><i class="fa fa-money"></i> {{ $admin->community->details->bpay }}</td>
 						</tr>
+						@if (Auth::user()->email !== 'contact@stratayourway.com.au')
 						<tr>
 							<td class="pt-3"><a href="{{ route('community.edit', $admin->community->id) }}">Edit details &rarr;</a></td>
 							<td class="pt-3"><a href="#" data-toggle="modal" data-target="#community-link">Send Link to Owners &rarr;</a></td>
 							<td class="pt-3"><a href="#" data-toggle="modal" data-target="#import-owner">Import Owners &rarr;</a></td>
 						</tr>
+						@endif
 					@endif
 				@else
 					<tr>Not assigned to any community.</tr>

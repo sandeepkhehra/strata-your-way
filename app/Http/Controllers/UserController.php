@@ -36,7 +36,6 @@ class UserController extends Controller
 	public function handleAdminUser()
 	{
 		$admin = Auth::user();
-
 		if ( $admin->email === 'contact@stratayourway.com.au' ) {
 			return (new SuperAdminController)->index();
 		}

@@ -182,7 +182,10 @@ class CommunityController extends Controller
      */
     public function destroy(Community $community)
     {
-        //
+		$community->delete();
+		session()->flash('status', 'Community deleted successfully!');
+
+		return redirect('/');
 	}
 
 	public function invite()
