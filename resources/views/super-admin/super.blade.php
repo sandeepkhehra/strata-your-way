@@ -27,7 +27,7 @@
 							<td>{{ $userClass::find($community->user_id) ? $userClass::find($community->user_id)->name : 'Admin profile doesn\'t exist!' }}</td>
 							<td style="display:flex;">
 								<a class="btn btn-primary" href="{{ route('super.community', $community->id) }}" style="margin-right:20px"><i class="fa fa-home"></i> Manage</a>
-								<form data-delete-user action="{{ route('community.destroy', $community->id) }}" method="POST">
+								<form data-delete-community action="{{ route('community.destroy', $community->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>

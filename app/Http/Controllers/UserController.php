@@ -69,7 +69,6 @@ class UserController extends Controller
 	public function delete(User $user)
 	{
 		$user->delete();
-
-		return redirect()->back()->with('status', 'User deleted successfully!');
+		// return redirect()->back()->with('status', 'User deleted successfully!');
 	}
 }

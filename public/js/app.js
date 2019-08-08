@@ -25413,10 +25413,32 @@ jQuery(function () {
     var fileName = e.target.files[0].name;
     $(this).next('label').html(fileName);
   });
-  $('form[data-delete-user]').on('submit', function (e) {
+  $('form[data-delete-community]').on('submit', function (e) {
     if (!confirm('Are you sure you want to delete this community?')) {
       return false;
     }
+  });
+  $('a[data-delete-user]').on('click', function (e) {
+    if (!confirm('Are you sure you want to delete this this?')) {
+      return false;
+    }
+
+    var _this = $(this);
+
+    var id = _this.data('user-id');
+
+    var token = $('meta[name=csrf-token]').attr('content');
+    $.ajax({
+      url: '/user/delete/' + id,
+      type: 'post',
+      data: {
+        _method: 'delete',
+        _token: token
+      },
+      success: function success() {
+        _this.parent().fadeOut(250).remove();
+      }
+    });
   });
   $('.has-select2').select2();
 });

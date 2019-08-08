@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::get('super/users', 'SuperAdminController@users')->name('super.users');
 	Route::get('super/community/{community}', 'SuperAdminController@community')->name('super.community');
+	Route::get('super/user/{user}', 'SuperAdminController@user')->name('super.user');
 });
 
 Route::post('landing/getQuote', 'GetQuoteController@getQuote');

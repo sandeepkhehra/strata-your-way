@@ -34,4 +34,16 @@ class SuperAdminController extends Controller
 		$lotUsers = User::where(['imported_by' => $community->id])->get();
 		return view('super-admin.community', compact('community', 'admin', 'lotUsers'));
 	}
+
+	public function user(Request $request, User $user)
+	{
+		$admin = $user;
+		if ( is_null( $admin ) ) {
+			$admin = (object) [
+				'community' => null,
+			];
+		}
+
+		return view('user.edit', compact('admin', 'user'));
+	}
 }

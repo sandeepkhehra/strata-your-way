@@ -149,10 +149,31 @@ jQuery(function() {
 		$(this).next('label').html(fileName)
 	});
 
-	$('form[data-delete-user]').on('submit', function(e) {
+	$('form[data-delete-community]').on('submit', function(e) {
 		if (! confirm('Are you sure you want to delete this community?')) {
 			return false;
 		}
+	})
+
+	$('a[data-delete-user]').on('click', function(e) {
+		if (! confirm('Are you sure you want to delete this this?')) {
+			return false;
+		}
+		const _this = $(this)
+		const id = _this.data('user-id')
+		const token = $('meta[name=csrf-token]').attr('content')
+
+		$.ajax({
+			url: '/user/delete/' + id,
+			type: 'post',
+			data: {
+				_method: 'delete',
+				_token : token
+			},
+			success: function() {
+				_this.parent().fadeOut(250).remove()
+			}
+		})
 	})
 
 	$('.has-select2').select2()

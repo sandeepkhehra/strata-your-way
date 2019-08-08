@@ -8,7 +8,6 @@
         <div class="col-md-12">
 			<h1 class="text-center">Basic Details</h1>
 			<hr>
-
 			<form method="POST" action="{{ route('user.update', $user->id) }}">
 				@csrf
 				@method('PUT')

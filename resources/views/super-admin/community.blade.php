@@ -24,8 +24,8 @@
 						@forelse ($lotUsers as $user)
 							@if ($user)
 								<li class="list-group-item">
-									<a href="#">{{ $user->name }}</a>
-									<a href="#" class="text-danger float-right">Delete</a>
+									<a href="{{ route('super.user', $user->id) }}">{{ $user->name }}</a>
+									<a href="#" data-user-id="{{ $user->id }}" data-delete-user class="text-danger float-right">Delete</a>
 								</li>
 							@else
 								<li class="list-group-item list-group-item-danger">User id {{ $userID }} is deleted!</li>
